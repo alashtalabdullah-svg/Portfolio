@@ -7,51 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary-dark: #2c2e33; --accent-blue: #007bff; --bg-light: #f8f9fa; }
+        :root { --primary-dark: #232529; --accent-blue: #007bff; --bg-light: #ffffff; --text-gray: #6c757d; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); color: #333; line-height: 1.6; }
         
-        /* Language & Download Sidebar */
+        /* Navigation & Buttons */
         .top-nav { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; }
-        .btn-action { padding: 10px 20px; border-radius: 30px; border: none; cursor: pointer; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
-        .btn-lang { background: var(--primary-dark); color: white; }
+        .btn-action { padding: 10px 20px; border-radius: 30px; border: none; cursor: pointer; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-lang { background: var(--primary-dark); color: white; border: 1px solid rgba(255,255,255,0.2); }
         .btn-cv { background: var(--accent-blue); color: white; }
 
         /* Layout */
         .container { display: flex; min-height: 100vh; }
-        .sidebar { width: 350px; background: var(--primary-dark); color: white; padding: 40px; position: fixed; height: 100vh; text-align: center; }
+        .sidebar { width: 350px; background: var(--primary-dark); color: white; padding: 40px; position: fixed; height: 100vh; text-align: center; border-right: 1px solid rgba(255,255,255,0.05); }
         .main-content { margin-left: 350px; padding: 60px; width: 100%; }
 
         /* Sidebar Content */
-        .profile-img { width: 180px; height: 180px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.1); margin-bottom: 20px; object-fit: cover; }
-        .sidebar h1 { font-size: 24px; margin-bottom: 10px; }
-        .sidebar p { color: #ccc; font-size: 14px; margin-bottom: 30px; }
+        .profile-img { width: 190px; height: 190px; border-radius: 15px; border: 4px solid rgba(255,255,255,0.1); margin-bottom: 25px; object-fit: cover; }
+        .sidebar h1 { font-size: 22px; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .sidebar p { color: #aaa; font-size: 13px; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links { list-style: none; text-align: left; }
-        .nav-links li { margin-bottom: 15px; }
-        .nav-links a { color: #fff; text-decoration: none; opacity: 0.7; transition: 0.3s; }
-        .nav-links a:hover { opacity: 1; padding-left: 10px; }
+        .nav-links li { margin-bottom: 20px; }
+        .nav-links a { color: #fff; text-decoration: none; opacity: 0.6; transition: 0.3s; font-size: 15px; }
+        .nav-links a:hover { opacity: 1; padding-left: 10px; color: var(--accent-blue); }
 
         /* Sections */
-        section { margin-bottom: 80px; }
-        .section-title { font-size: 28px; border-bottom: 3px solid var(--accent-blue); display: inline-block; margin-bottom: 30px; }
+        section { margin-bottom: 100px; scroll-margin-top: 50px; }
+        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 40px; position: relative; padding-bottom: 15px; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: var(--accent-blue); }
         
-        /* Skill Bars */
-        .skill-item { margin-bottom: 20px; }
-        .skill-info { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 600; }
-        .progress-bg { background: #e9ecef; height: 10px; border-radius: 5px; }
-        .progress-fill { background: var(--accent-blue); height: 100%; border-radius: 5px; transition: 1s; }
+        /* Skill Progress Bars */
+        .skill-item { margin-bottom: 25px; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; font-size: 15px; }
+        .progress-bg { background: #eee; height: 8px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { background: var(--accent-blue); height: 100%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0.5, 0.5, 1); }
 
-        /* Timeline */
-        .timeline { border-left: 2px solid var(--accent-blue); padding-left: 20px; }
-        .timeline-item { position: relative; margin-bottom: 30px; }
-        .timeline-item::before { content: ''; position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; background: var(--accent-blue); border-radius: 50%; }
-        .timeline-date { font-weight: bold; color: var(--accent-blue); }
+        /* Experience Timeline */
+        .timeline { border-left: 2px solid #eee; padding-left: 30px; position: relative; }
+        .timeline-item { position: relative; margin-bottom: 45px; }
+        .timeline-item::before { content: ''; position: absolute; left: -37px; top: 0; width: 12px; height: 12px; background: var(--accent-blue); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px #eee; }
+        .timeline-date { font-weight: bold; color: var(--accent-blue); font-size: 14px; display: block; margin-bottom: 5px; }
+        .timeline-item h4 { font-size: 18px; margin-bottom: 5px; color: var(--primary-dark); }
+        .timeline-item h5 { color: var(--text-gray); font-weight: 400; margin-bottom: 10px; }
 
         /* Impact Cards */
-        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .card i { font-size: 24px; color: var(--accent-blue); margin-bottom: 15px; display: block; }
+        .card h3 { margin-bottom: 10px; font-size: 18px; }
 
-        @media (max-width: 992px) { .container { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; } .main-content { margin-left: 0; padding: 30px; } }
+        @media (max-width: 992px) { .container { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; padding: 30px; } .main-content { margin-left: 0; padding: 40px 20px; } }
     </style>
 </head>
 <body>
@@ -63,60 +69,68 @@
 
     <div class="container">
         <aside class="sidebar">
-            <img src="Abdullah Alashtal.jpg" alt="Abdullah Alashtal" class="profile-img">
+            <img src="Abdullah Alashtal.png" alt="Abdullah Alashtal" class="profile-img">
             <h1>Abdullah Alashtal</h1>
-            <p>Operations Coordinator | Office Administration</p>
+            <p>Operations & Admin Specialist</p>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About Me</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#impact">Work Impact</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#value">My Philosophy</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </aside>
 
         <main class="main-content">
             <section id="home">
-                <h2 class="section-title">Overview</h2>
-                <p>Age: 23 Years | Location: Yemen (Ready to relocate to KSA)</p>
-                <div style="margin-top: 30px;">
-                    <div class="skill-item">
-                        <div class="skill-info"><span>Team Leadership (15+ Staff)</span><span>90%</span></div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>Cost Reduction & Waste Identification</span><span>80%</span></div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>Workflow System Design</span><span>88%</span></div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 88%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info"><span>Advanced Software (MS, Asana, Google Workspace)</span><span>80%</span></div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
-                    </div>
+                <h2 class="section-title">Professional Overview</h2>
+                <p style="margin-bottom: 30px; color: var(--text-gray);">Age: 23 | Ready to Relocate to KSA</p>
+                
+                <div class="skill-item">
+                    <div class="skill-info"><span>Team Leadership (15+ members)</span><span>90%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Cost Reduction & Waste Identification</span><span>80%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Workflow System Design</span><span>88%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 88%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Advanced Software (MS Office, Asana, Google Workspace)</span><span>80%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
                 </div>
             </section>
 
             <section id="about">
                 <h2 class="section-title">About Me</h2>
-                <p>Proactive Administrative and Office Management professional with over 4 years of comprehensive experience[cite: 46]. Specialist in coordinating administrative functions and optimizing operational workflows[cite: 47]. Completed the McKinsey Forward Program with strong skills in process improvement[cite: 49].</p>
+                [cite_start]<p>I am an operations and management specialist with over five years of experience in import coordination, administrative supervision, and operational project management[cite: 4]. [cite_start]I excel in resource organization, cost control, and building efficient work systems that support financial stability and operational efficiency[cite: 5]. [cite_start]I co-founded an operational project and was later promoted to full management, overseeing daily cycles and achieving stable discipline[cite: 6].</p>
             </section>
 
             <section id="experience">
                 <h2 class="section-title">Professional Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <span class="timeline-date">April 2024 - Present</span>
-                        <h4>Office & Operations Manager</h4>
-                        <p>Hermony Group | Managing comprehensive office operations and facilitating cross-departmental communication[cite: 54, 55, 61].</p>
+                        <span class="timeline-date">May 2024 – January 2026</span>
+                        <h4>Restaurant & Operations Management</h4>
+                        <h5>Zurbian Island Restaurant (Hermony Group)</h5>
+                        [cite_start]<p>Full project management within the company's framework, leading teams, distributing tasks, and controlling costs[cite: 20, 21, 22, 23]. [cite_start]Used AI tools for performance reporting and analysis[cite: 24].</p>
                     </div>
                     <div class="timeline-item">
-                        <span class="timeline-date">August 2020 - April 2024</span>
-                        <h4>Business Operations Specialist</h4>
-                        <p>Hermony Group | Handled administrative tasks including documentation and managed inventory systems[cite: 63, 64, 65, 66].</p>
+                        <span class="timeline-date">May 2023 – May 2024</span>
+                        <h4>Administrative Supervisor</h4>
+                        <h5>Zurbian Island Restaurant (Hermony Group)</h5>
+                        [cite_start]<p>Established administrative and operational structures from the launch phase, setting SOPs and resource organization[cite: 14, 16, 17].</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">August 2020 – May 2024</span>
+                        <h4>Administrative Assistant – Import Dept</h4>
+                        <h5>Hermony Group for Import and Export</h5>
+                        [cite_start]<p>Coordinated import operations, supplier relations, and supply chains while preparing operational and financial reports for senior management[cite: 8, 9, 10, 11, 12].</p>
                     </div>
                 </div>
             </section>
@@ -125,28 +139,48 @@
                 <h2 class="section-title">Work Impact</h2>
                 <div class="impact-grid">
                     <div class="card">
-                        <i class="fas fa-chart-line" style="color: var(--accent-blue);"></i>
-                        <h3>30% Efficiency</h3>
-                        <p>Improved administrative efficiency by implementing new office procedures[cite: 59].</p>
+                        <i class="fas fa-rocket"></i>
+                        <h3>Project Foundation</h3>
+                        [cite_start]<p>Successfully established the administrative structure of a major project from day one[cite: 6, 16].</p>
                     </div>
                     <div class="card">
-                        <i class="fas fa-dumpster" style="color: var(--accent-blue);"></i>
-                        <h3>Waste Reduction</h3>
-                        <p>Optimized ordering procedures and stock rotation to reduce operational waste[cite: 18].</p>
+                        <i class="fas fa-coins"></i>
+                        <h3>Financial Stability</h3>
+                        [cite_start]<p>Monitored cash flows and expenses to ensure project sustainability and resource optimization[cite: 13, 23, 25].</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Integration</h3>
+                        [cite_start]<p>Utilized AI tools to analyze operational results and develop work processes[cite: 24].</p>
                     </div>
                 </div>
             </section>
 
-            <section id="why">
+            <section id="skills">
+                <h2 class="section-title">Core Skills</h2>
+                <div class="impact-grid">
+                    <div class="card">
+                        <h3>Operational</h3>
+                        [cite_start]<p>Supplier & inventory management, cost analysis, and system development[cite: 29, 31, 32].</p>
+                    </div>
+                    <div class="card">
+                        <h3>Leadership</h3>
+                        [cite_start]<p>Effective administrative supervision, team leading, and strategic decision making[cite: 33, 34].</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="value">
                 <h2 class="section-title">Why I Add Value?</h2>
-                <p>I combine academic knowledge in International Business with 4+ years of hands-on operational experience[cite: 46, 52]. My philosophy centers on operational excellence and resource optimization to drive business sustainability[cite: 76, 87].</p>
+                [cite_start]<p>I combine 5+ years of practical experience with an academic background in International Business Management[cite: 4, 27]. [cite_start]My work philosophy focuses on building systems that drive efficiency and stable operational discipline[cite: 5, 6]. [cite_start]Distinguished by my McKinsey Forward certification (2025) and advanced digital marketing skills[cite: 36, 38].</p>
             </section>
 
             <section id="contact">
                 <h2 class="section-title">Contact Me</h2>
                 <div class="card">
-                    <p><i class="fas fa-envelope"></i> alashtalabdullah@gmail.com [cite: 3]</p>
-                    <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/abdullah-al-ashtal/">LinkedIn Profile</a></p>
+                    [cite_start]<p style="margin-bottom: 15px;"><i class="fas fa-envelope"></i> alashtalabdullah@gmail.com [cite: 2]</p>
+                    [cite_start]<p style="margin-bottom: 15px;"><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" target="_blank" style="color: var(--accent-blue);">linkedin.com/in/abdullah-al-ashtal/</a> [cite: 2]</p>
+                    <p style="font-style: italic; color: var(--text-gray);">Looking forward to contributing to your team's success.</p>
                 </div>
             </section>
         </main>
