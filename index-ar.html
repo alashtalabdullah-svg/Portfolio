@@ -9,7 +9,7 @@
     <style>
         :root { --primary-dark: #232529; --accent-blue: #007bff; --bg-light: #ffffff; --text-gray: #6c757d; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: #333; line-height: 1.6; text-align: right; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: #333; line-height: 1.8; text-align: right; }
         
         /* Navigation & Buttons */
         .top-nav { position: fixed; top: 20px; left: 20px; z-index: 1000; display: flex; gap: 10px; }
@@ -19,45 +19,49 @@
 
         /* Layout */
         .container { display: flex; min-height: 100vh; }
-        .sidebar { width: 350px; background: var(--primary-dark); color: white; padding: 40px; position: fixed; height: 100vh; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); }
+        .sidebar { width: 350px; background: var(--primary-dark); color: white; padding: 40px; position: fixed; height: 100vh; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); overflow-y: auto; }
         .main-content { margin-right: 350px; padding: 60px; width: 100%; }
 
-        /* Sidebar Content */
+        /* Sidebar Content & Toggle Menu */
         .profile-img { width: 190px; height: 190px; border-radius: 15px; border: 4px solid rgba(255,255,255,0.1); margin-bottom: 25px; object-fit: cover; }
-        .sidebar h1 { font-size: 24px; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .sidebar p { color: #aaa; font-size: 14px; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links { list-style: none; text-align: right; }
-        .nav-links li { margin-bottom: 20px; }
-        .nav-links a { color: #fff; text-decoration: none; opacity: 0.6; transition: 0.3s; font-size: 16px; }
-        .nav-links a:hover { opacity: 1; padding-right: 10px; color: var(--accent-blue); }
+        .sidebar h1 { font-size: 24px; margin-bottom: 5px; }
+        .sidebar p { color: #aaa; font-size: 14px; margin-bottom: 20px; }
+        
+        .menu-toggle-btn { background: transparent; border: 1px solid var(--accent-blue); color: var(--accent-blue); font-size: 18px; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-family: 'Cairo', sans-serif; }
+        .menu-toggle-btn:hover { background: var(--accent-blue); color: white; }
+        
+        .nav-menu { display: none; margin-top: 25px; text-align: right; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; }
+        .nav-menu.active { display: block; }
+        .nav-menu ul { list-style: none; }
+        .nav-menu li { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .nav-menu li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .nav-menu a { color: #fff; text-decoration: none; opacity: 0.8; transition: 0.3s; font-size: 16px; display: block; }
+        .nav-menu a:hover { opacity: 1; padding-right: 10px; color: var(--accent-blue); }
 
         /* Sections */
-        section { margin-bottom: 100px; scroll-margin-top: 50px; }
-        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 40px; position: relative; padding-bottom: 15px; }
+        section { margin-bottom: 90px; scroll-margin-top: 50px; }
+        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 30px; position: relative; padding-bottom: 15px; }
         .section-title::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60px; height: 4px; background: var(--accent-blue); }
         
         /* Skill Progress Bars */
         .skill-item { margin-bottom: 25px; }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; font-size: 15px; }
         .progress-bg { background: #eee; height: 8px; border-radius: 10px; overflow: hidden; }
-        .progress-fill { background: var(--accent-blue); height: 100%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0.5, 0.5, 1); }
+        .progress-fill { background: var(--accent-blue); height: 100%; border-radius: 10px; transition: 1.5s; }
 
-        /* Experience Timeline */
-        .timeline { border-right: 2px solid #eee; padding-right: 30px; position: relative; }
-        .timeline-item { position: relative; margin-bottom: 45px; }
-        .timeline-item::before { content: ''; position: absolute; right: -37px; top: 0; width: 12px; height: 12px; background: var(--accent-blue); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px #eee; }
-        .timeline-date { font-weight: bold; color: var(--accent-blue); font-size: 15px; display: block; margin-bottom: 5px; }
-        .timeline-item h4 { font-size: 20px; margin-bottom: 5px; color: var(--primary-dark); }
-        .timeline-item h5 { color: var(--text-gray); font-weight: 400; margin-bottom: 10px; }
-
-        /* Impact Cards */
+        /* Cards */
         .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .card i { font-size: 24px; color: var(--accent-blue); margin-bottom: 15px; display: block; }
+        .card i.icon-title { font-size: 24px; color: var(--accent-blue); margin-bottom: 15px; display: block; }
         .card h3 { margin-bottom: 10px; font-size: 20px; }
 
-        @media (max-width: 992px) { .container { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; padding: 30px; } .main-content { margin-right: 0; padding: 40px 20px; } }
+        /* Contact Links */
+        .social-links { display: flex; gap: 30px; justify-content: center; margin-top: 20px; }
+        .social-btn { font-size: 45px; color: var(--primary-dark); transition: 0.3s; text-decoration: none; }
+        .social-btn:hover { color: var(--accent-blue); transform: scale(1.1); }
+
+        @media (max-width: 992px) { .container { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; padding: 30px; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.05); } .main-content { margin-right: 0; padding: 40px 20px; } }
     </style>
 </head>
 <body>
@@ -71,22 +75,28 @@
         <aside class="sidebar">
             <img src="Abdullah Alashtal.png" alt="عبدالله الأشطل" class="profile-img">
             <h1>عبدالله الأشطل</h1>
-            <p>متخصص في العمليات والإدارة</p>
-            <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">من أنا</a></li>
-                <li><a href="#experience">خبرتي المهنية</a></li>
-                <li><a href="#impact">أثر عملي</a></li>
-                <li><a href="#skills">المهارات</a></li>
-                <li><a href="#value">فلسفة العمل</a></li>
-                <li><a href="#contact">تواصل معي</a></li>
-            </ul>
+            <p>متخصص عمليات وإدارة</p>
+            
+            <button class="menu-toggle-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i> تصفح الأقسام
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" onclick="toggleMenu()">الرئيسية</a></li>
+                    <li><a href="#about" onclick="toggleMenu()">من أنا</a></li>
+                    <li><a href="#impact" onclick="toggleMenu()">أثر عملي</a></li>
+                    <li><a href="#skills" onclick="toggleMenu()">المهارات الأساسية</a></li>
+                    <li><a href="#value" onclick="toggleMenu()">لماذا أضيف قيمة؟</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">تواصل معي</a></li>
+                </ul>
+            </div>
         </aside>
 
         <main class="main-content">
             <section id="home">
                 <h2 class="section-title">نظرة عامة</h2>
-                <p style="margin-bottom: 30px; color: var(--text-gray);">العمر: 23 سنة | جاهز للانتقال للعمل في المملكة العربية السعودية</p>
+                <p style="margin-bottom: 30px; color: var(--text-gray);">العمر: 23 سنة | الموقع: المملكة العربية السعودية</p>
                 
                 <div class="skill-item">
                     <div class="skill-info"><span>إدارة الفرق (15 شخص فأكثر)</span><span>90%</span></div>
@@ -97,61 +107,37 @@
                     <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
                 </div>
                 <div class="skill-item">
-                    <div class="skill-info"><span>صناعة أنظمة وآليات العمل</span><span>88%</span></div>
+                    <div class="skill-info"><span>صناعة أنظمة وآليات العمل للمهام المتوسطة والبسيطة</span><span>88%</span></div>
                     <div class="progress-bg"><div class="progress-fill" style="width: 88%;"></div></div>
                 </div>
                 <div class="skill-item">
-                    <div class="skill-info"><span>البرامج المتطورة (MS Office, Asana, Google Workspace)</span><span>80%</span></div>
+                    <div class="skill-info"><span>العمل ببرامج متطورة (مايكروسوفت, أسانا, قوقل ورك سبيس)</span><span>80%</span></div>
                     <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
                 </div>
             </section>
 
             <section id="about">
-                <h2 class="section-title">من أنا</h2>
-                [cite_start]<p>أنا متخصص في العمليات والإدارة، أمتلك خبرة عملية تمتد لأكثر من خمس سنوات في تنسيق عمليات الاستيراد، الإشراف الإداري، وإدارة المشاريع التشغيلية[cite: 4]. [cite_start]أتميز بقدرة عالية على تنظيم الموارد، ضبط التكاليف، وبناء أنظمة عمل فعّالة تدعم الاستقرار المالي والكفاءة التشغيلية[cite: 5]. [cite_start]شاركت في تأسيس مشروع تشغيلي تابع للشركة منذ يومه الأول، وتمت ترقيتي لاحقاً لإدارته بشكل كامل، حيث أشرفت على دورة العمل اليومية وقيادة الفريق[cite: 6].</p>
-            </section>
-
-            <section id="experience">
-                <h2 class="section-title">خبرتي المهنية</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="timeline-date">مايو 2024 – يناير 2026</span>
-                        <h4>إدارة المطعم والعمليات التشغيلية</h4>
-                        <h5>مطعم جزيرة الزربيان (مجموعة هيرموني)</h5>
-                        [cite_start]<p>توليت الإدارة الكاملة للمشروع، وقيادة فريق العمل وتوزيع المهام، مع العمل على ضبط التكاليف وتحسين كفاءة استخدام الموارد[cite: 20, 21, 22, 23]. [cite_start]استخدمت أدوات الذكاء الاصطناعي لتحليل نتائج الأداء وتطوير العمل[cite: 24].</p>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">مايو 2023 – مايو 2024</span>
-                        <h4>مشرف إداري</h4>
-                        <h5>مطعم جزيرة الزربيان (مجموعة هيرموني)</h5>
-                        [cite_start]<p>أشرفت على تأسيس الهيكل الإداري والتشغيلي للمشروع منذ مرحلة الانطلاق، ووضعت إجراءات العمل الموحدة ونظمت الموارد[cite: 14, 16, 17].</p>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">أغسطس 2020 – مايو 2024</span>
-                        <h4>مساعد إداري – قسم الاستيراد</h4>
-                        <h5>مجموعة هيرموني للاستيراد والتصدير</h5>
-                        [cite_start]<p>تنسيق عمليات الاستيراد والتعامل مع الموردين الدوليين ومتابعة شحنات سلاسل الإمداد، مع إعداد التقارير التشغيلية والمالية للإدارة العليا[cite: 8, 9, 10, 11, 12].</p>
-                    </div>
-                </div>
+                <h2 class="section-title">من أنا؟</h2>
+                <p>أنا عبدالله الأشطل، مساعد إداري سابق في شركة هيرموني للاستيراد. بدأت مشواري المهني بعمر مبكر في عام 2020، وساعدني القدر بالعمل بعد تخرجي من الثانوية العامة مباشرة في بيئة عمل ناشئة لأتمكن من التنقل في الأدوار والمناصب داخل الشركة، التي كانت صاحبة الفضل بعد الله في مساعدتي للعب أدوار قد تكون كبيرة مقارنة بعمري، واكتساب خبرات عملية وإدارية جبارة جداً. وبعد ذلك، منحتني الإدارة العليا الثقة للإشراف على مشروع فرعي تابع، وبعد فترة الإشراف قامت الشركة بمنحي الثقة مجدداً وترقيتي إلى منصب مدير للمشروع في عام 2024، التي تُعد من أفضل السنوات لي التي حصلت فيها على خبرة عملية في أرض الميدان لإدارة العمليات التشغيلية والقيام بالأعمال الإدارية الخاصة بالمشروع. وأيضاً كنت أسعى في نفس العام للحصول على دورات تعلمني وتضيف لي خبرات في مجال عملي الجديد حتى اختتمت مشواري في الشركة التي قدمت لي الكثير في 2026 بإدارتها الذكية والمحترفة في مجال عملها. وفي نفس العام ذهبت إلى السوق السعودي بغرض التطور والبحث عن فرص في سوق أكثر شراسة ومتجه إلى العالمية.</p>
             </section>
 
             <section id="impact">
                 <h2 class="section-title">أثر عملي</h2>
                 <div class="impact-grid">
                     <div class="card">
-                        <i class="fas fa-rocket"></i>
+                        <i class="fas fa-rocket icon-title"></i>
                         <h3>تأسيس المشاريع</h3>
-                        [cite_start]<p>النجاح في بناء الهيكل الإداري لمشروع تشغيلي من الصفر وضمان انضباطه[cite: 6, 16].</p>
+                        <p>نجحت في مساعدة الإدارة في بناء الهيكل الإداري لمشاريعهم من الصفر، والمساعدة أيضاً في سن اللوائح الداخلية وتطويرها لتصبح أكثر مرونة لمواجهة التحديات المستقبلية.</p>
                     </div>
                     <div class="card">
-                        <i class="fas fa-wallet"></i>
+                        <i class="fas fa-wallet icon-title"></i>
                         <h3>الاستقرار المالي</h3>
-                        [cite_start]<p>متابعة التدفقات النقدية والمصروفات بدقة لتعزيز استدامة المشاريع[cite: 13, 23, 25].</p>
+                        <p>الجزء الأصعب والأكثر متعة وتعقيداً هو متابعة التدفقات النقدية والمصروفات بدقة لتعزيز استدامة المشروع، واستطعت القيام بها بشكل بارع.</p>
                     </div>
                     <div class="card">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-brain icon-title"></i>
                         <h3>توظيف التقنية</h3>
-                        [cite_start]<p>تحليل نتائج الأداء التشغيلي باستخدام أدوات الذكاء الاصطناعي لتطوير آليات العمل[cite: 24].</p>
+                        <p>كانت تواجهني مشاكل تتطلب مني أن أحمل مهارة معينة مثل تحليل نتائج الأداء، ونجحت باستخدام أدوات الذكاء الاصطناعي لصناعة التحليل المطلوب للنتائج للاستفادة من الأرقام بشكل أكبر لتطوير آليات العمل.</p>
                     </div>
                 </div>
             </section>
@@ -161,29 +147,44 @@
                 <div class="impact-grid">
                     <div class="card">
                         <h3>مهارات تشغيلية</h3>
-                        [cite_start]<p>إدارة الموردين والمخزون، تحليل التكاليف، وتطوير الأنظمة التشغيلية[cite: 29, 31, 32].</p>
+                        <p>إدارة الموردين والمخزون، تحليل التكاليف، وتطوير الأنظمة التشغيلية.</p>
                     </div>
                     <div class="card">
                         <h3>مهارات قيادية</h3>
-                        [cite_start]<p>الإشراف الإداري الفعال، قيادة الفرق، واتخاذ القرارات الاستراتيجية وحل المشكلات[cite: 33, 34].</p>
+                        <p>الإشراف الإداري الفعال، قيادة الفرق، واتخاذ القرارات الاستراتيجية وحل المشكلات.</p>
                     </div>
                 </div>
             </section>
 
             <section id="value">
                 <h2 class="section-title">لماذا أضيف قيمة؟</h2>
-                [cite_start]<p>أجمع بين الخبرة العملية العميقة (5+ سنوات) والتحصيل الأكاديمي في إدارة الأعمال الدولية[cite: 4, 27]. [cite_start]فلسفتي تركز على بناء أنظمة عمل تحقق الكفاءة القصوى والانضباط التشغيلي المستقر[cite: 5, 6]. [cite_start]متميز بحصولي على شهادة McKinsey Forward (2025) ومهارات متقدمة في التسويق الرقمي[cite: 36, 38].</p>
+                <p>من خلال مسيرتي العملية البسيطة لأكثر من 5 سنوات استطعت أن أجمع بين الخبرة العملية في أقسام متعددة لتتكون لدي المهارة للعمل المتعدد، ولكي أحافظ على مهاراتي قمت بصقلها بتحصيل أكاديمي في إدارة الأعمال الدولية، التي جعلتني أعرف السبب العلمي لكل مشكلة تعاملت معها في الإدارة، وما هي الحلول العلمية المجربة، وهل قمت بقرار جيد أم قرار خاطئ؛ مما ساعد في ارتفاع الوعي الإداري لدي عن طريق التجربة والتعليم معاً.</p>
+                <br>
+                <p>ساعدتني التحديات في العمل على تكوين فلسفة شخصية وطابع شخصي وإداري نادر ومختلف، فقد حرصت على اكتساب الصفات الجيدة من كل شخص عملت معه أو عمل معي، هذا لا يعني اكتسابي للصفات الجيدة كلها ولكني لم أخرج دون نتيجة. وكان لبرنامج McKinsey Forward دور محوري في جعل هذه الميزة تنمي ذكائي العاطفي ومهاراتي الناعمة وتجعلني نسخة أفضل من نفسي مع مرور الأيام. وقد يكون شغف التعلم والإبداع هو ما ينقص فريقك؟</p>
             </section>
 
             <section id="contact">
                 <h2 class="section-title">تواصل معي</h2>
-                <div class="card">
-                    [cite_start]<p style="margin-bottom: 15px;"><i class="fas fa-envelope"></i> alashtalabdullah@gmail.com [cite: 2]</p>
-                    [cite_start]<p style="margin-bottom: 15px;"><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" target="_blank" style="color: var(--accent-blue);">linkedin.com/in/abdullah-al-ashtal/</a> [cite: 2]</p>
-                    <p style="font-style: italic; color: var(--text-gray);">أتطلع للمساهمة في نجاح فريقكم.</p>
+                <div class="card" style="text-align: center;">
+                    <p style="margin-bottom: 20px; font-size: 18px;">يسعدني تواصلك معي عبر المنصات التالية:</p>
+                    <div class="social-links">
+                        <a href="mailto:alashtalabdullah@gmail.com" class="social-btn" title="أرسل لي بريداً إلكترونياً">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" target="_blank" class="social-btn" title="حسابي على LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("navMenu");
+            menu.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
