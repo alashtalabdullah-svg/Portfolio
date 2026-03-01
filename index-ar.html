@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عبدالله الأشطل | منسق عمليات وإدارة</title>
+    <title>عبدالله الأشطل | منسق عمليات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,61 +11,56 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; color: var(--text); background: #fff; line-height: 1.7; }
         
-        /* Header Fix */
-        nav { padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 22px; font-weight: 900; color: var(--navy); text-decoration: none; }
-        .logo span { color: var(--navy); } /* اللون الكحلي المطلوب */
-        
-        .nav-btns { display: flex; gap: 10px; align-items: center; }
-        .btn { padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; white-space: nowrap; }
-        .btn-primary { background: var(--navy); color: #fff; }
-        .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); }
+        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--navy); }
+        /* هنا التعديل الذي طلبته لجعل الكلمة الثانية سوداء */
+        .logo span { color: var(--navy); } 
 
-        /* Sections */
-        section { padding: 60px 8%; }
-        .hero { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-        .hero-content { flex: 1.2; min-width: 300px; }
-        .hero-content h1 { font-size: 40px; font-weight: 900; color: var(--navy); margin-bottom: 20px; }
-        .hero-content p { font-size: 17px; margin-bottom: 15px; }
-        .hero-img { flex: 0.8; min-width: 300px; text-align: center; }
-        .hero-img img { width: 100%; max-width: 380px; border-radius: 12px; box-shadow: 20px 20px 0 var(--light); }
+        .btn { padding: 10px 20px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; cursor: pointer; }
+        .btn-primary { background: var(--navy); color: #fff; }
+        .btn-outline { border: 1px solid var(--navy); color: var(--navy); margin-right: 10px; }
+
+        section { padding: 70px 8%; }
+        .hero { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; background: #fff; }
+        .hero-content { flex: 1; min-width: 320px; }
+        .hero-content h1 { font-size: 42px; font-weight: 900; color: var(--navy); margin-bottom: 20px; }
+        .hero-img { flex: 1; min-width: 320px; text-align: center; }
+        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 25px 25px 0 var(--light); }
 
         .bg-light { background: var(--light); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: #fff; padding: 30px; border-radius: 8px; border: 1px solid #eef2f6; }
-        .card i { font-size: 30px; color: var(--blue); margin-bottom: 15px; display: block; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: #fff; padding: 35px; border-radius: 8px; border: 1px solid #eef2f6; transition: 0.3s; }
+        .card i { font-size: 35px; color: var(--blue); margin-bottom: 20px; display: block; }
 
-        footer { background: var(--navy); color: #fff; padding: 60px 8%; text-align: center; }
-        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
-        .social-link { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 4px; font-size: 20px; text-decoration: none; }
+        footer { background: var(--navy); color: #fff; padding: 80px 8%; text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+        .social-link { width: 55px; height: 55px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; border-radius: 5px; transition: 0.3s; text-decoration: none; }
+        .social-link:hover { background: var(--blue); transform: translateY(-5px); }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px 5%; }
+            nav { flex-direction: column; gap: 15px; }
             .hero { flex-direction: column-reverse; text-align: center; }
-            .hero-content h1 { font-size: 30px; }
-            .hero-img img { max-width: 250px; box-shadow: 10px 10px 0 var(--light); }
-            .nav-btns { width: 100%; justify-content: center; }
-            .btn { flex: 1; text-align: center; padding: 10px 5px; font-size: 12px; }
+            .hero-content h1 { font-size: 32px; }
+            .hero-img img { max-width: 280px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="#" class="logo">عبدالله <span>الأشطل</span></a>
-    <div class="nav-btns">
+    <div class="logo">عبدالله <span>الأشطل</span></div>
+    <div>
         <a href="index.html" class="btn btn-outline">English</a>
-        <a href="عبدالله عبدالكريم الأشطل CV.docx" class="btn btn-primary" download>تحميل CV</a>
+        <a href="cv-ar.pdf" class="btn btn-primary" download>السيرة الذاتية</a>
     </div>
 </nav>
 
 <section class="hero">
     <div class="hero-content">
-        <h1>حياكم الله، أنا عبدالله الأشطل </h1>
-        <p>أنا متخصص في العمليات والإدارة، أمتلك خبرة عملية تمتد لأكثر من خمس سنوات في تنسيق عمليات الاستيراد، الإشراف الإداري، وإدارة المشاريع التشغيلية[cite: 4].</p>
-        <p style="font-weight: 700; color: var(--blue);">مقيم حالياً في المملكة العربية السعودية.</p>
-        <a href="#contact" class="btn btn-primary" style="margin-top: 20px; padding: 15px 30px;">تواصل معي</a>
+        <h1>حياكم الله، أنا عبدالله الأشطل</h1>
+        <p>مساعد إداري ومنسق عمليات، متخصص في تنظيم بيئات العمل وبناء أنظمة واضحة لضبط الإجراءات وتقليل الهدر التشغيلي.</p>
+        <p style="font-weight: 700; color: var(--blue); margin-top: 10px;">مقيم حالياً في المملكة العربية السعودية.</p>
+        <a href="#contact" class="btn btn-primary" style="padding: 15px 35px; margin-top: 20px;">تواصل معي</a>
     </div>
     <div class="hero-img">
         <img src="Abdullah Alashtal.png" alt="عبدالله الأشطل">
@@ -74,15 +69,14 @@
 
 <section class="bg-light">
     <div class="grid">
-        <div class="card"><i class="fas fa-chart-line"></i><h4>تنسيق العمليات</h4><p>خبرة في تنسيق عمليات الاستيراد والتعامل مع الموردين الدوليين ومتابعة سلاسل الإمداد[cite: 10, 11].</p></div>
-        <div class="card"><i class="fas fa-utensils"></i><h4>إدارة المشاريع</h4><p>الإدارة الكاملة للعمليات التشغيلية لمشروع مطعم جزيرة الزربيان وقيادة فريق مكون من 10 أشخاص[cite: 20, 22].</p></div>
-        <div class="card"><i class="fas fa-cogs"></i><h4>تطوير الأنظمة</h4><p>بناء أنظمة عمل فعّالة وضبط التكاليف لتحسين الكفاءة التشغيلية[cite: 5, 23].</p></div>
+        <div class="card"><i class="fas fa-tasks"></i><h4>تنسيق العمليات</h4><p>إدارة سلاسل الإمداد ومتابعة الشحنات بدقة عالية.</p></div>
+        <div class="card"><i class="fas fa-shield-halved"></i><h4>الرقابة الإدارية</h4><p>تأسيس الهياكل الإدارية وضبط التكاليف والمصاريف.</p></div>
+        <div class="card"><i class="fas fa-users"></i><h4>قيادة الفرق</h4><p>إدارة فرق العمل الميدانية وتوزيع المهام بكفاءة.</p></div>
     </div>
 </section>
 
 <footer id="contact">
     <h2>تواصل معي</h2>
-    <p style="margin-top: 10px; opacity: 0.8;">متاح حالياً لمناقشة فرص التعاون المهني داخل المملكة.</p>
     <div class="social-links">
         <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
         <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
