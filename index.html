@@ -11,51 +11,47 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; color: var(--text); background: #fff; line-height: 1.7; }
         
-        nav { padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 22px; font-weight: 900; color: var(--navy); text-decoration: none; }
-        .logo span { color: var(--navy); }
-        
-        .nav-btns { display: flex; gap: 10px; align-items: center; }
-        .btn { padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; white-space: nowrap; }
+        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--navy); }
+        .logo span { color: var(--navy); } /* التعديل هنا أيضاً */
+
+        .btn { padding: 10px 20px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; display: inline-block; transition: 0.3s; }
         .btn-primary { background: var(--navy); color: #fff; }
-        .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); }
+        .btn-outline { border: 1px solid var(--navy); color: var(--navy); margin-right: 10px; }
 
-        section { padding: 60px 8%; }
-        .hero { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-        .hero-content { flex: 1.2; min-width: 300px; }
-        .hero-content h1 { font-size: 40px; font-weight: 900; color: var(--navy); margin-bottom: 20px; }
-        .hero-img img { width: 100%; max-width: 380px; border-radius: 12px; box-shadow: -20px 20px 0 var(--light); }
+        section { padding: 70px 8%; }
+        .hero { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .hero-content { flex: 1; min-width: 320px; }
+        .hero-content h1 { font-size: 42px; font-weight: 900; color: var(--navy); }
+        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: -25px 25px 0 var(--light); }
 
-        footer { background: var(--navy); color: #fff; padding: 60px 8%; text-align: center; }
-        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
-        .social-link { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 4px; font-size: 20px; text-decoration: none; }
+        footer { background: var(--navy); color: #fff; padding: 80px 8%; text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .social-link { width: 55px; height: 55px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; border-radius: 5px; text-decoration: none; transition: 0.3s; }
 
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px 5%; }
             .hero { flex-direction: column; text-align: center; }
-            .hero-content h1 { font-size: 30px; }
-            .hero-img img { max-width: 250px; box-shadow: -10px 10px 0 var(--light); }
-            .nav-btns { width: 100%; justify-content: center; }
-            .btn { flex: 1; text-align: center; padding: 10px 5px; font-size: 12px; }
+            .hero-content h1 { font-size: 32px; }
+            .hero-img img { max-width: 280px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="#" class="logo">Abdullah <span>Alashtal</span></a>
-    <div class="nav-btns">
+    <div class="logo">Abdullah <span>Alashtal</span></div>
+    <div>
         <a href="index-ar.html" class="btn btn-outline">العربية</a>
-        <a href="عبدالله عبدالكريم الأشطل CV.docx" class="btn btn-primary" download>Download CV</a>
+        <a href="cv-en.pdf" class="btn btn-primary" download>Download CV</a>
     </div>
 </nav>
 
 <section class="hero">
     <div class="hero-content">
-        <h1>I'm Abdullah Alashtal </h1>
-        <p>An Operations and Management professional with over five years of experience in coordinating import operations, administrative supervision, and operational project management[cite: 4].</p>
-        <p style="font-weight: 700; color: var(--blue);">Currently resident in Saudi Arabia.</p>
-        <a href="#contact" class="btn btn-primary" style="margin-top: 20px; padding: 15px 30px;">Connect With Me</a>
+        <h1>I'm Abdullah Alashtal</h1>
+        <p>Operations Coordinator & Administrative Specialist. Building workflows and implementing effective control systems.</p>
+        <p style="font-weight: 700; color: var(--blue); margin-top: 10px;">Currently resident in Saudi Arabia.</p>
+        <a href="#contact" class="btn btn-primary" style="padding: 15px 35px; margin-top: 20px;">Contact Me</a>
     </div>
     <div class="hero-img">
         <img src="Abdullah Alashtal.png" alt="Abdullah Alashtal">
@@ -64,7 +60,6 @@
 
 <footer id="contact">
     <h2>Connect</h2>
-    <p style="margin-top: 10px; opacity: 0.8;">Open for professional opportunities within KSA.</p>
     <div class="social-links">
         <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
         <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
