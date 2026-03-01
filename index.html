@@ -4,35 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdullah Alashtal | Ops Coordinator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --navy: #0a1227; --blue: #1b63ed; --light: #f8fafc; --text: #1a1d23; }
+        :root { --navy: #0a1227; --blue: #1b63ed; --light: #f8fafc; --text: #1a1d23; --muted: #64748b; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; color: var(--text); background: #fff; line-height: 1.7; }
-        
-        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--navy); }
-        .logo span { color: var(--navy); } /* التعديل هنا أيضاً */
+        body { font-family: 'Inter', sans-serif; color: var(--text); background-color: #fff; line-height: 1.8; }
 
-        .btn { padding: 10px 20px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; display: inline-block; transition: 0.3s; }
+        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--navy); }
+        .logo span { color: var(--blue); }
+        
+        .btn { padding: 12px 25px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; display: inline-block; transition: 0.3s; }
         .btn-primary { background: var(--navy); color: #fff; }
         .btn-outline { border: 1px solid var(--navy); color: var(--navy); margin-right: 10px; }
 
-        section { padding: 70px 8%; }
-        .hero { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
-        .hero-content { flex: 1; min-width: 320px; }
-        .hero-content h1 { font-size: 42px; font-weight: 900; color: var(--navy); }
-        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: -25px 25px 0 var(--light); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 90px 0; }
+        .bg-light { background-color: var(--light); }
+        .tag { color: var(--blue); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .title { font-size: 36px; font-weight: 900; color: var(--navy); margin-bottom: 40px; }
 
-        footer { background: var(--navy); color: #fff; padding: 80px 8%; text-align: center; }
-        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
-        .social-link { width: 55px; height: 55px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; border-radius: 5px; text-decoration: none; transition: 0.3s; }
+        .hero { padding: 120px 0; }
+        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .hero-text { flex: 1.2; min-width: 300px; }
+        .hero-text h1 { font-size: 48px; line-height: 1.2; margin-bottom: 25px; }
+        .hero-img { flex: 0.8; min-width: 300px; text-align: center; }
+        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: -40px 40px 0px var(--light); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: #fff; padding: 45px; border-radius: 8px; border: 1px solid #e2e8f0; transition: 0.3s; }
+        .card i { font-size: 40px; color: var(--blue); margin-bottom: 25px; display: block; }
+
+        footer { background: var(--navy); color: #fff; padding: 100px 0; text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+        .social-link { width: 60px; height: 60px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; border-radius: 4px; transition: 0.3s; }
+        .social-link:hover { background: var(--blue); transform: translateY(-5px); }
 
         @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; }
-            .hero-content h1 { font-size: 32px; }
-            .hero-img img { max-width: 280px; }
+            .hero-flex { flex-direction: column; text-align: center; }
+            .hero-text h1 { font-size: 32px; }
+            .hero-img img { box-shadow: -20px 20px 0px var(--light); }
         }
     </style>
 </head>
@@ -47,22 +59,51 @@
 </nav>
 
 <section class="hero">
-    <div class="hero-content">
-        <h1>I'm Abdullah Alashtal</h1>
-        <p>Operations Coordinator & Administrative Specialist. Building workflows and implementing effective control systems.</p>
-        <p style="font-weight: 700; color: var(--blue); margin-top: 10px;">Currently resident in Saudi Arabia.</p>
-        <a href="#contact" class="btn btn-primary" style="padding: 15px 35px; margin-top: 20px;">Contact Me</a>
+    <div class="container">
+        <div class="hero-flex">
+            <div class="hero-text">
+                <span class="tag">Introduction</span>
+                <h1>I am Abdullah Alashtal</h1>
+                <p>Administrative Assistant and Operations Coordinator. I specialize in stepping into disorganized environments to build clear workflows, streamline procedures, and reduce management pressure.</p>
+                <p style="margin-top: 15px; font-weight: 700; color: var(--navy);">Currently based in Saudi Arabia.</p>
+                <div style="margin-top: 30px;">
+                    <a href="#contact" class="btn btn-primary" style="padding: 18px 45px;">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-img">
+                <img src="Abdullah Alashtal.png" alt="Abdullah Alashtal">
+            </div>
+        </div>
     </div>
-    <div class="hero-img">
-        <img src="Abdullah Alashtal.png" alt="Abdullah Alashtal">
+</section>
+
+<section class="bg-light">
+    <div class="container">
+        <span class="tag">About Me</span>
+        <h2 class="title">Professional Journey</h2>
+        <div class="grid">
+            <div class="card">
+                <h4>Operations & Foundation</h4>
+                <p>Started in the import sector, coordinating between CEO and staff. Co-founded an operational project from scratch, establishing manual systems before moving to digital solutions.</p>
+            </div>
+            <div class="card">
+                <h4>Leadership & Results</h4>
+                <p>Led a team of 10 people with a focus on cost reduction, waste elimination, and strengthening internal controls for quality assurance.</p>
+            </div>
+        </div>
     </div>
 </section>
 
 <footer id="contact">
-    <h2>Connect</h2>
-    <div class="social-links">
-        <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    <div class="container">
+        <h2>Connect With Me</h2>
+        <p>Currently residing in Saudi Arabia and open to professional opportunities.</p>
+        <div class="social-links">
+            <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/3bdu_ak/?hl=ar" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/abdallah.alashtal" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        </div>
     </div>
 </footer>
 
