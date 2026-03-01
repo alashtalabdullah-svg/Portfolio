@@ -1,82 +1,57 @@
 <!DOCTYPE html>
-
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Abdullah Al-Ashtal | Operations & Administrative Coordinator</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
+    <title>Abdullah Alashtal | Ops Coordinator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        :root {
-            --finox-navy: #0a1227; 
-            --finox-blue: #1b63ed; 
-            --finox-light: #f8fafc; 
-            --text-main: #1a1d23;
-            --text-muted: #64748b;
-        }
-
+        :root { --navy: #0a1227; --blue: #1b63ed; --light: #f4f7fa; --text: #1a1d23; --muted: #5e6675; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Cairo', sans-serif; color: var(--text-main); background-color: #fff; line-height: 1.8; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); background-color: #fff; line-height: 1.7; }
 
-        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--finox-navy); }
-        .logo span { color: var(--finox-blue); }
-
-        .btn { padding: 12px 25px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; cursor: pointer; }
-        .btn-primary { background: var(--finox-navy); color: #fff; }
-        .btn-primary:hover { background: var(--finox-blue); }
-        .btn-outline { border: 1px solid var(--finox-navy); color: var(--finox-navy); margin-left: 10px; }
+        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 22px; font-weight: 800; color: var(--navy); }
+        .logo span { color: var(--blue); }
+        .btn { padding: 12px 24px; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; border-radius: 4px; display: inline-block; }
+        .btn-primary { background: var(--navy); color: #fff; }
+        .btn-outline { border: 1px solid var(--navy); color: var(--navy); margin-right: 10px; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 90px 0; }
-        .bg-light { background-color: var(--finox-light); }
-        .tag { color: var(--finox-blue); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .title { font-size: 36px; font-weight: 900; color: var(--finox-navy); margin-bottom: 40px; }
-
-        .hero { padding: 120px 0; background: #fff; }
+        .hero { padding: 100px 0; }
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-text { flex: 1.2; min-width: 300px; }
-        .hero-text h1 { font-size: 48px; line-height: 1.2; margin-bottom: 25px; color: var(--finox-navy); }
-        .hero-img { flex: 0.8; min-width: 300px; text-align: center; }
-        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 40px 40px 0px var(--finox-light); }
+        .hero-text { flex: 1; min-width: 320px; }
+        .hero-text h1 { font-size: 45px; font-weight: 900; color: var(--navy); line-height: 1.2; margin-bottom: 25px; }
+        .hero-img { flex: 1; min-width: 320px; text-align: center; }
+        .hero-img img { width: 100%; max-width: 450px; border-radius: 8px; box-shadow: -30px 30px 0px var(--light); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: #fff; padding: 45px; border-radius: 8px; border: 1px solid #e2e8f0; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--finox-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .card i { font-size: 40px; color: var(--finox-blue); margin-bottom: 25px; display: block; }
-        .card h4 { font-size: 22px; margin-bottom: 15px; color: var(--finox-navy); }
+        section { padding: 80px 0; }
+        .bg-light { background-color: var(--light); }
+        .section-tag { color: var(--blue); font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .section-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; }
 
-        footer { background: var(--finox-navy); color: #fff; padding: 100px 0; text-align: center; }
-        footer h2 { font-size: 40px; margin-bottom: 20px; }
-        footer p { opacity: 0.7; margin-bottom: 40px; max-width: 600px; margin: 0 auto 40px auto; }
-        .social-links { display: flex; justify-content: center; gap: 20px; }
-        .social-link { width: 60px; height: 60px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; border-radius: 4px; transition: 0.3s; text-decoration: none; }
-        .social-link:hover { background: var(--finox-blue); transform: translateY(-5px); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .info-card { background: #fff; padding: 40px; border-radius: 8px; border: 1px solid #eef2f6; transition: 0.3s; }
+        .info-card:hover { border-color: var(--blue); transform: translateY(-5px); }
+
+        .contact-footer { background: var(--navy); color: #fff; padding: 80px 0; text-align: center; }
+        .social-icons { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .social-icon { width: 50px; height: 50px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 4px; }
 
         @media (max-width: 768px) {
-            .hero-flex { flex-direction: column-reverse; text-align: center; }
+            .hero-flex { flex-direction: column; text-align: center; }
             .hero-text h1 { font-size: 32px; }
-            .hero-img img { box-shadow: 20px 20px 0px var(--finox-light); }
-            nav { flex-direction: column; gap: 15px; }
+            .hero-img img { box-shadow: -15px 15px 0px var(--light); }
         }
     </style>
-
 </head>
-
 <body>
 
 <nav>
-    <div class="logo">Abdullah <span>Al-Ashtal</span></div>
+    <div class="logo">Abdullah <span>Alashtal</span></div>
     <div>
-        <a href="index-ar.html" class="btn btn-outline">Arabic</a>
+        <a href="index-ar.html" class="btn btn-outline">العربية</a>
         <a href="cv-en.pdf" class="btn btn-primary" download>Download CV</a>
     </div>
 </nav>
@@ -85,21 +60,14 @@
     <div class="container">
         <div class="hero-flex">
             <div class="hero-text">
-                <span class="tag">Welcome</span>
-                <h1>Hello, I’m Abdullah Abdulkarim Al-Ashtal</h1>
-                <p>I am an Administrative Assistant and Operations Coordinator. In simple terms, I step into unstructured work environments, organize them, build clear operational systems, streamline procedures, reduce management pressure, and ensure that operations run efficiently and correctly.</p>
-
-                <p style="margin-top: 15px; font-weight: 700; color: var(--finox-navy);">
-                    Currently based in Saudi Arabia.
-                </p>
-
-                <div style="margin-top: 30px;">
-                    <a href="#contact" class="btn btn-primary" style="padding: 18px 45px;">Contact Me Now</a>
-                </div>
+                <span class="section-tag">Welcome to my portfolio</span>
+                <h1>I'm Abdullah Alashtal</h1>
+                <p>An Administrative Assistant and Operations Coordinator. I specialize in organizing work environments, building workflows, and streamlining procedures to ensure business success.</p>
+                <p style="font-weight: 700; color: var(--navy); margin-top: 15px;">Currently resident in Saudi Arabia.</p>
+                <a href="#contact" class="btn btn-primary" style="margin-top: 25px;">Connect with me</a>
             </div>
-
             <div class="hero-img">
-                <img src="Abdullah Alashtal.png" alt="Abdullah Al-Ashtal">
+                <img src="Abdullah Alashtal.png" alt="Abdullah Alashtal">
             </div>
         </div>
     </div>
@@ -107,76 +75,33 @@
 
 <section class="bg-light">
     <div class="container">
-        <span class="tag">About Me</span>
-        <h2 class="title">Who I Am</h2>
-
+        <span class="section-tag">Biography</span>
+        <h2 class="section-title">About Me</h2>
         <div class="grid">
-            <div class="card">
-                <h4>Experience & Foundation</h4>
-                <p>My journey began coordinating operations between the CEO and the team in the import sector. I was responsible for presenting updates and supporting decision-making. I also contributed to launching an operational project from scratch, developing schedules and systems before digitizing them.</p>
+            <div class="info-card">
+                <h4>Experience</h4>
+                <p>I started in operations coordination in the import sector, handling international partnerships and daily workflows. I eventually took on larger operational roles, aiding management in critical decision-making.</p>
             </div>
-
-            <div class="card">
-                <h4>Leadership & Results</h4>
-                <p>I later managed the project directly and led a team of 10 employees. My focus was on cost control, reducing waste, strengthening internal controls, and maintaining strict quality standards.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <span class="tag">Operational Vision</span>
-        <h2 class="title">How I Think</h2>
-
-        <div class="card" style="max-width: 900px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 18px;">
-                When facing any operational issue, I don’t focus on surface-level symptoms. I search for the root cause. I rely first on field observation, then analyze data to complete the picture. I clearly define responsibilities to avoid task overlap and ensure smooth workflow.
-            </p>
-        </div>
-    </div>
-</section>
-
-<section class="bg-light">
-    <div class="container">
-        <span class="tag">Capabilities</span>
-        <h2 class="title">Core Skills</h2>
-
-        <div class="grid">
-            <div class="card">
-                <i class="fas fa-handshake"></i>
-                <h4>Business Relations</h4>
-                <p>Identifying international partners and handling professional correspondence.</p>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <h4>Financial Oversight</h4>
-                <p>Monitoring daily expenses and reviewing revenue accurately.</p>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-users-cog"></i>
-                <h4>Team Management</h4>
-                <p>Leading 10 employees and distributing tasks efficiently.</p>
+            <div class="info-card">
+                <h4>Leadership</h4>
+                <p>I co-founded an operational project from scratch, establishing systems for expenses and inventory. I later managed the project directly, leading a team of 10 people.</p>
             </div>
         </div>
     </div>
 </section>
 
-<footer id="contact">
+<section class="contact-footer" id="contact">
     <div class="container">
         <h2>Get in Touch</h2>
-        <p>Currently based in Saudi Arabia and available to discuss administrative and operational collaboration opportunities.</p>
-
-        <div class="social-links">
-            <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com/3bdu_ak/?hl=ar" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/abdallah.alashtal" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <p>I am currently based in Saudi Arabia and open for professional opportunities in operations and administration.</p>
+        <div class="social-icons">
+            <a href="mailto:alashtalabdullah@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/3bdu_ak/?hl=ar" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/abdallah.alashtal" class="social-icon"><i class="fab fa-facebook-f"></i></a>
         </div>
     </div>
-</footer>
+</section>
 
 </body>
 </html>
