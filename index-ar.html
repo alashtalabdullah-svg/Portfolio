@@ -4,174 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عبدالله الأشطل | منسق عمليات وإدارة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --finox-navy: #0a1227; 
-            --finox-blue: #1b63ed; 
-            --finox-light: #f8fafc; 
-            --text-main: #1a1d23;
-            --text-muted: #64748b;
-        }
-
+        :root { --navy: #0a1227; --blue: #1b63ed; --light: #f8fafc; --text: #1a1d23; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Cairo', sans-serif; color: var(--text-main); background-color: #fff; line-height: 1.8; }
-
-        /* Navigation */
-        nav { padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--finox-navy); }
-        .logo span { color: var(--finox-blue); }
+        body { font-family: 'Cairo', sans-serif; color: var(--text); background: #fff; line-height: 1.7; }
         
-        .btn { padding: 12px 25px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; cursor: pointer; }
-        .btn-primary { background: var(--finox-navy); color: #fff; }
-        .btn-primary:hover { background: var(--finox-blue); }
-        .btn-outline { border: 1px solid var(--finox-navy); color: var(--finox-navy); margin-right: 10px; }
+        /* Header Fix */
+        nav { padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 22px; font-weight: 900; color: var(--navy); text-decoration: none; }
+        .logo span { color: var(--navy); } /* اللون الكحلي المطلوب */
+        
+        .nav-btns { display: flex; gap: 10px; align-items: center; }
+        .btn { padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 4px; transition: 0.3s; display: inline-block; border: none; white-space: nowrap; }
+        .btn-primary { background: var(--navy); color: #fff; }
+        .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); }
 
         /* Sections */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 90px 0; }
-        .bg-light { background-color: var(--finox-light); }
-        .tag { color: var(--finox-blue); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .title { font-size: 36px; font-weight: 900; color: var(--finox-navy); margin-bottom: 40px; }
-
-        /* Hero */
-        .hero { padding: 120px 0; background: #fff; }
-        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-text { flex: 1.2; min-width: 300px; }
-        .hero-text h1 { font-size: 48px; line-height: 1.2; margin-bottom: 25px; color: var(--finox-navy); }
+        section { padding: 60px 8%; }
+        .hero { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .hero-content { flex: 1.2; min-width: 300px; }
+        .hero-content h1 { font-size: 40px; font-weight: 900; color: var(--navy); margin-bottom: 20px; }
+        .hero-content p { font-size: 17px; margin-bottom: 15px; }
         .hero-img { flex: 0.8; min-width: 300px; text-align: center; }
-        .hero-img img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 40px 40px 0px var(--finox-light); }
+        .hero-img img { width: 100%; max-width: 380px; border-radius: 12px; box-shadow: 20px 20px 0 var(--light); }
 
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: #fff; padding: 45px; border-radius: 8px; border: 1px solid #e2e8f0; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--finox-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .card i { font-size: 40px; color: var(--finox-blue); margin-bottom: 25px; display: block; }
-        .card h4 { font-size: 22px; margin-bottom: 15px; color: var(--finox-navy); }
+        .bg-light { background: var(--light); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 30px; border-radius: 8px; border: 1px solid #eef2f6; }
+        .card i { font-size: 30px; color: var(--blue); margin-bottom: 15px; display: block; }
 
-        /* Footer / Contact */
-        footer { background: var(--finox-navy); color: #fff; padding: 100px 0; text-align: center; }
-        footer h2 { font-size: 40px; margin-bottom: 20px; }
-        footer p { opacity: 0.7; margin-bottom: 40px; max-width: 600px; margin: 0 auto 40px auto; }
-        .social-links { display: flex; justify-content: center; gap: 20px; }
-        .social-link { width: 60px; height: 60px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; border-radius: 4px; transition: 0.3s; text-decoration: none; }
-        .social-link:hover { background: var(--finox-blue); transform: translateY(-5px); }
+        footer { background: var(--navy); color: #fff; padding: 60px 8%; text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+        .social-link { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 4px; font-size: 20px; text-decoration: none; }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero-flex { flex-direction: column-reverse; text-align: center; }
-            .hero-text h1 { font-size: 32px; }
-            .hero-img img { box-shadow: 20px 20px 0px var(--finox-light); }
-            nav { flex-direction: column; gap: 15px; }
+            nav { flex-direction: column; gap: 15px; padding: 15px 5%; }
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-img img { max-width: 250px; box-shadow: 10px 10px 0 var(--light); }
+            .nav-btns { width: 100%; justify-content: center; }
+            .btn { flex: 1; text-align: center; padding: 10px 5px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">عبدالله <span>الأشطل</span></div>
-    <div>
+    <a href="#" class="logo">عبدالله <span>الأشطل</span></a>
+    <div class="nav-btns">
         <a href="index.html" class="btn btn-outline">English</a>
-        <a href="cv-ar.pdf" class="btn btn-primary" download>تحميل السيرة الذاتية</a>
+        <a href="عبدالله عبدالكريم الأشطل CV.docx" class="btn btn-primary" download>تحميل CV</a>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="container">
-        <div class="hero-flex">
-            <div class="hero-text">
-                <span class="tag">مرحباً بك</span>
-                <h1>حياكم الله، أنا عبدالله عبدالكريم الأشطل</h1>
-                <p>مساعد إداري ومنسق عمليات، شغلتي باختصار إني أدخل على بيئات العمل اللي فيها عدم تنظيم وأرتبها، أبني أنظمة عمل واضحة وأضبط الإجراءات و اخفف الضغط على الاداره وانظم لهم اعمالهم عشان الشغل يمشي صح.</p>
-                <p style="margin-top: 15px; font-weight: 700; color: var(--finox-navy);">مقيم حالياً في المملكة العربية السعودية.</p>
-                <div style="margin-top: 30px;">
-                    <a href="#contact" class="btn btn-primary" style="padding: 18px 45px;">تواصل معي الآن</a>
-                </div>
-            </div>
-            <div class="hero-img">
-                <img src="Abdullah Alashtal.png" alt="عبدالله الأشطل">
-            </div>
-        </div>
+    <div class="hero-content">
+        <h1>حياكم الله، أنا عبدالله الأشطل </h1>
+        <p>أنا متخصص في العمليات والإدارة، أمتلك خبرة عملية تمتد لأكثر من خمس سنوات في تنسيق عمليات الاستيراد، الإشراف الإداري، وإدارة المشاريع التشغيلية[cite: 4].</p>
+        <p style="font-weight: 700; color: var(--blue);">مقيم حالياً في المملكة العربية السعودية.</p>
+        <a href="#contact" class="btn btn-primary" style="margin-top: 20px; padding: 15px 30px;">تواصل معي</a>
+    </div>
+    <div class="hero-img">
+        <img src="Abdullah Alashtal.png" alt="عبدالله الأشطل">
     </div>
 </section>
 
 <section class="bg-light">
-    <div class="container">
-        <span class="tag">نبذة عني</span>
-        <h2 class="title">من أنا</h2>
-        <div class="grid">
-            <div class="card">
-                <h4>الخبرة والتأسيس</h4>
-                <p>بداياتي كانت في تنسيق العمليات بين المدير التنفيذي و الفريق في قطاع الاستيراد، كنت السند اللي يرفع المستجدات ويساعد في اتخاذ القرار. شاركت في تأسيس مشروع تشغيلي من الصفر ووضعت الجداول والأنظمة قبل تحويلها للرقمية.</p>
-            </div>
-            <div class="card">
-                <h4>القيادة والنتائج</h4>
-                <p>استلمت إدارة المشروع بشكل مباشر وقدت فريقاً من 10 أشخاص. تركيزي كان على ضبط التكاليف وتقليل الهدر، وتقوية الرقابة الداخلية وضبط الجودة بكل حزم ووضوح.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <span class="tag">الرؤية التشغيلية</span>
-        <h2 class="title">كيف أفكر؟</h2>
-        <div class="card" style="max-width: 900px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 18px;">لما تطلع لي أي مشكلة تشغيلية ما أركز على القشرة، أدور على السبب الحقيقي من جذوره. أعتمد على النزول الميداني والملاحظة أولاً، وبعدين أراجع الأرقام عشان تكتمل عندي الصورة. أحب أحدد مسؤوليات كل شخص بوضوح عشان ما يحصل تداخل في الشغل.</p>
-        </div>
-    </div>
-</section>
-
-<section class="bg-light">
-    <div class="container">
-        <span class="tag">القدرات</span>
-        <h2 class="title">مهاراتي العملية</h2>
-        <div class="grid">
-            <div class="card">
-                <i class="fas fa-handshake"></i>
-                <h4>العلاقات التجارية</h4>
-                <p>البحث عن شركاء دوليين والمراسلات الاحترافية.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <h4>الرقابة والمالية</h4>
-                <p>ضبط المصاريف اليومية ومراجعة الإيرادات بالريال.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-users-cog"></i>
-                <h4>إدارة الفرق</h4>
-                <p>قيادة 10 موظفين وتوزيع المهام بكفاءة عالية.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <div class="grid">
-            <div style="padding: 40px; border: 2px dashed #e2e8f0; text-align: center; border-radius: 8px;">
-                <h4 style="color: #94a3b8;">ماذا يقول عني المدراء</h4>
-                <p style="color: #94a3b8; font-size: 14px;">(قريباً)</p>
-            </div>
-            <div style="padding: 40px; border: 2px dashed #e2e8f0; text-align: center; border-radius: 8px;">
-                <h4 style="color: #94a3b8;">مشروع المحاكاة</h4>
-                <p style="color: #94a3b8; font-size: 14px;">(قريباً)</p>
-            </div>
-        </div>
+    <div class="grid">
+        <div class="card"><i class="fas fa-chart-line"></i><h4>تنسيق العمليات</h4><p>خبرة في تنسيق عمليات الاستيراد والتعامل مع الموردين الدوليين ومتابعة سلاسل الإمداد[cite: 10, 11].</p></div>
+        <div class="card"><i class="fas fa-utensils"></i><h4>إدارة المشاريع</h4><p>الإدارة الكاملة للعمليات التشغيلية لمشروع مطعم جزيرة الزربيان وقيادة فريق مكون من 10 أشخاص[cite: 20, 22].</p></div>
+        <div class="card"><i class="fas fa-cogs"></i><h4>تطوير الأنظمة</h4><p>بناء أنظمة عمل فعّالة وضبط التكاليف لتحسين الكفاءة التشغيلية[cite: 5, 23].</p></div>
     </div>
 </section>
 
 <footer id="contact">
-    <div class="container">
-        <h2>تواصل معي</h2>
-        <p>مقيم حالياً في المملكة العربية السعودية ومتاح لمناقشة فرص التعاون الإداري والتشغيلي.</p>
-        <div class="social-links">
-            <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com/3bdu_ak/?hl=ar" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/abdallah.alashtal" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        </div>
+    <h2>تواصل معي</h2>
+    <p style="margin-top: 10px; opacity: 0.8;">متاح حالياً لمناقشة فرص التعاون المهني داخل المملكة.</p>
+    <div class="social-links">
+        <a href="mailto:alashtalabdullah@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/3bdu_ak/?hl=ar" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
 </footer>
 
