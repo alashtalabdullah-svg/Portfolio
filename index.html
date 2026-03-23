@@ -55,6 +55,15 @@
         .info-card h4 { font-size: 20px; margin-bottom: 15px; color: var(--finox-navy); }
         .info-card p { font-size: 15px; color: var(--text-muted); }
 
+        /* Testimonials */
+        .testimonial-card { background: #fff; padding: 35px; border-radius: 8px; border: 1px solid #eef2f6; transition: 0.3s; display: flex; flex-direction: column; gap: 20px; }
+        .testimonial-card:hover { border-color: var(--finox-blue); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .testimonial-header { display: flex; align-items: center; gap: 15px; }
+        .testimonial-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--finox-light); }
+        .testimonial-info h4 { font-size: 18px; color: var(--finox-navy); margin-bottom: 2px; }
+        .testimonial-info span { font-size: 14px; color: var(--finox-blue); font-weight: 600; }
+        .testimonial-text { font-size: 15px; color: var(--text-muted); font-style: italic; line-height: 1.8; }
+
         /* Contact Section */
         .contact-footer { background: var(--finox-navy); color: #fff; padding: 80px 0; text-align: center; }
         .contact-footer h2 { font-size: 35px; margin-bottom: 20px; }
@@ -70,10 +79,10 @@
             .hero-text p { text-align: center; }
             .hero-flex { flex-direction: column; gap: 40px; }
             .hero-img img { box-shadow: -15px 15px 0px var(--finox-light); }
-            /* On mobile, text usually comes first in English layouts */
             .hero-text { order: 1; }
             .hero-img { order: 2; }
             .section-title { font-size: 26px; text-align: center; }
+            .testimonial-card { padding: 25px; }
         }
     </style>
 </head>
@@ -157,15 +166,41 @@
 
 <section>
     <div class="container">
+        <span class="section-tag">Testimonials</span>
+        <h2 class="section-title">What Managers Say</h2>
         <div class="grid">
-            <div style="text-align: center; padding: 40px; background: #fafafa; border: 1px dashed #ccc; border-radius: 8px;">
-                <h4 style="color: #999;">Testimonials</h4>
-                <p>(Coming Soon)</p>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="mona-logo.png" alt="Mona Awad" class="testimonial-img">
+                    <div class="testimonial-info">
+                        <h4>Mona Awad</h4>
+                        <span>Exceed Language Center</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">"I highly recommend Abdullah for his exceptional commitment and professional growth at the Exceed Language Center. During his 100-hour work/study internship, he managed administrative tasks, resolved student inquiries, and handled clerical duties with a 'can-do' attitude. Abdullah is a punctual, dedicated individual with strong English proficiency who consistently proves equal to any task assigned. He would be a fantastic asset to any team seeking a reliable professional with a great work ethic."</p>
             </div>
-            <div style="text-align: center; padding: 40px; background: #fafafa; border: 1px dashed #ccc; border-radius: 8px;">
-                <h4 style="color: #999;">Simulation Project</h4>
-                <p>(Coming Soon)</p>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="waleed-pic.png" alt="Waleed Al-Omari" class="testimonial-img">
+                    <div class="testimonial-info">
+                        <h4>Waleed Al-Omari</h4>
+                        <span>Hermony for Import</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">"It is my great pleasure to recommend Mr. Abdullah Al-Ashtal and to attest to what he has demonstrated throughout his professional journey with us at Hermony for Import. Over the course of more than five years, Abdullah built a distinguished career marked by continuous growth and increasingly expanding responsibilities. What sets Abdullah apart is his combination of strong organizational skills, professionalism in all his dealings, and an unwavering commitment to excellence in everything entrusted to him. He is punctual, dedicated to fulfilling his responsibilities with the utmost integrity, and approaches every challenge with a positive attitude."</p>
             </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="bg-light">
+    <div class="container">
+        <div style="text-align: center; padding: 40px; border: 1px dashed #ccc; border-radius: 8px; max-width: 600px; margin: 0 auto; background: #fff;">
+            <h4 style="color: #999; margin-bottom: 10px;">Simulation Project</h4>
+            <p style="color: #999; font-size: 14px;">(Coming Soon)</p>
         </div>
     </div>
 </section>
