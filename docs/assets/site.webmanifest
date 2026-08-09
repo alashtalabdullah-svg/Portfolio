@@ -1,0 +1,16 @@
+{
+  "name": "عبدالله عبدالكريم الأشطل — قائد العمليات والجودة",
+  "short_name": "الأشطل",
+  "description": "من الفوضى إلى النظام — قيادة العمليات والجودة وأتمتة سير العمل بوكلاء الذكاء الاصطناعي.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#EFEBE2",
+  "theme_color": "#0B0B0D",
+  "icons": [
+    { "src": "/assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

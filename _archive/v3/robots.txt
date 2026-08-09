@@ -1,0 +1,10 @@
+# Everything published on this site is open to crawlers — nothing is
+# disallowed. `_archive/` holds the previous build and is not linked from
+# anywhere; it is left out of the sitemap rather than named in a Disallow
+# line, because a Disallow line publishes the address to anyone reading
+# this file.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://alashtalabdullah.info/sitemap.xml

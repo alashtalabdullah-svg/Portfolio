@@ -1,0 +1,369 @@
+{
+  "_comment": "Every fact that appears on more than one page lives here, and only here. Page bodies live in src/pages/*.{ar,en}.html and hold nothing but their own <main>. If you find yourself editing the same string in two files, it belongs in this one.",
+  "origin": "https://alashtalabdullah.info",
+  "author": {
+    "ar": "عبدالله عبدالكريم الأشطل",
+    "en": "Abdullah Abdulkareem Al-Ashtal"
+  },
+  "role": {
+    "ar": "قائد العمليات والجودة",
+    "en": "Operations & Quality Lead"
+  },
+  "city": {
+    "ar": "الدمام",
+    "en": "Dammam"
+  },
+  "country": {
+    "ar": "المملكة العربية السعودية",
+    "en": "Saudi Arabia"
+  },
+  "employer": {
+    "ar": "إديوستيشن",
+    "en": "EduStation"
+  },
+  "university": {
+    "ar": "جامعة العلوم الحديثة",
+    "en": "University of Modern Sciences"
+  },
+  "image": "/assets/img/abdullah.jpg",
+  "ogImage": "/assets/img/og.png",
+  "social": [
+    "https://www.linkedin.com/in/abdullah-al-ashtal/",
+    "https://www.instagram.com/3bdu_ak/",
+    "https://www.facebook.com/abdallah.alashtal"
+  ],
+  "langs": {
+    "ar": {
+      "code": "ar",
+      "dir": "rtl",
+      "locale": "ar_SA",
+      "base": "/",
+      "brand": "الأشطل",
+      "swatch": "ع",
+      "cv": "/assets/cv/cv-ar.pdf",
+      "ui": {
+        "skip": "تخط إلى المحتوى",
+        "boot": "تهيئة النظام",
+        "menuOpen": "فتح القائمة",
+        "langGroup": "اللغة",
+        "contact": "تواصل",
+        "index": "الفهرس",
+        "indexNav": "فهرس الموقع",
+        "meter": "منسوب النظام",
+        "meterNow": "الغلاف",
+        "cvLabel": "السيرة الذاتية",
+        "cvCue": "نزل",
+        "otherLang": "English version",
+        "home": "الصفحة الرئيسية",
+        "next": "التالي",
+        "footRole": "قائد العمليات والجودة · تشغيل مدعوم بوكلاء الذكاء الاصطناعي",
+        "crumbHome": "الرئيسية"
+      }
+    },
+    "en": {
+      "code": "en",
+      "dir": "ltr",
+      "locale": "en_US",
+      "base": "/en/",
+      "brand": "AL-ASHTAL",
+      "swatch": "EN",
+      "cv": "/assets/cv/cv-en.pdf",
+      "ui": {
+        "skip": "Skip to content",
+        "boot": "Initialising system",
+        "menuOpen": "Open menu",
+        "langGroup": "Language",
+        "contact": "Contact",
+        "index": "Index",
+        "indexNav": "Site index",
+        "meter": "System level",
+        "meterNow": "Cover",
+        "cvLabel": "Curriculum vitae",
+        "cvCue": "get it",
+        "otherLang": "النسخة العربية",
+        "home": "Home",
+        "next": "Next",
+        "footRole": "Operations & Quality Lead · AI-powered operations",
+        "crumbHome": "Home"
+      }
+    }
+  },
+  "pages": [
+    {
+      "id": "home",
+      "out": "",
+      "n": "01",
+      "ar": {
+        "nav": "الفوضى",
+        "title": "عبدالله الأشطل — قائد عمليات وجودة | من الفوضى إلى النظام",
+        "desc": "قائد العمليات والجودة في إديوستيشن بالدمام. أدخل على بيئات العمل غير المنظمة وأخرج منها بنظام يمشي بلا احتكاك — خمس سنوات خبرة وأتمتة بوكلاء الذكاء الاصطناعي.",
+        "og": "الفوضى ليست عدوا. إنها حالة أولية — والنظام قرار.",
+        "h1": "العمليات، بنظام مختلف."
+      },
+      "en": {
+        "nav": "Chaos",
+        "title": "Abdullah Al-Ashtal — Operations & Quality Lead",
+        "desc": "Operations & Quality Lead in Dammam. I walk into unstructured operations and leave behind a system that runs without friction — plus AI-agent workflow automation.",
+        "og": "Chaos is not the enemy. It is a starting state — and order is a decision.",
+        "h1": "Operations, by a different order."
+      }
+    },
+    {
+      "id": "record",
+      "out": "record",
+      "n": "02",
+      "ar": {
+        "nav": "السجل",
+        "title": "السجل — خبرات عبدالله الأشطل في العمليات والجودة",
+        "desc": "أربع بيئات عمل غير منظمة دخلتها وخرجت منها بنظام: تنسيق الاستيراد في هيرموني، وتأسيس مطعم جزيرة الزربيان وإدارته، وقيادة العمليات والجودة في إديوستيشن.",
+        "og": "أربع مرات دخلت فيها الفوضى — وهذه سجلات ما بعد الترتيب.",
+        "h1": "أربع مرات دخلت فيها الفوضى."
+      },
+      "en": {
+        "nav": "Record",
+        "title": "Operations & Quality Experience Record — Al-Ashtal",
+        "desc": "Four unstructured environments I walked into and left with a system — import coordination, founding an operating project, and leading operations at EduStation.",
+        "og": "Four times I walked into the chaos — these are the logs from after.",
+        "h1": "Four times I walked into the chaos."
+      }
+    },
+    {
+      "id": "ai",
+      "out": "ai",
+      "n": "03",
+      "ar": {
+        "nav": "الوكلاء",
+        "title": "وكلاء الذكاء الاصطناعي في التشغيل — أتمتة سير العمل",
+        "desc": "أصمم سير العمل عبر Claude Code وأشغله من خلال Manus، وأنشر وكلاء لإعداد التقارير وإدخال البيانات والمتابعة — بمراجعة بشرية لكل مخرج وضوابط للسرية.",
+        "og": "النظام الذي كتب ليعمل بلا صاحبه، صار يعمل بوكلاء.",
+        "h1": "النظام الذي يعمل بلا صاحبه."
+      },
+      "en": {
+        "nav": "Agents",
+        "title": "AI Agents in Operations — Workflow Automation",
+        "desc": "Designing workflows with Claude Code and running them through Manus, with agents for reporting, data entry and follow-up — and human review at every output.",
+        "og": "The system written to run without its author now runs on agents.",
+        "h1": "The system that runs without its author."
+      }
+    },
+    {
+      "id": "contact",
+      "out": "contact",
+      "n": "04",
+      "ar": {
+        "nav": "التشغيل",
+        "title": "التشغيل والتواصل — ابدأ ترتيب عملياتك | الأشطل",
+        "desc": "ثلاث حالات تشغيل بمعيار واحد: إدارة العمليات، وضبط الجودة والرقابة، وأتمتة سير العمل بالوكلاء. مع إجابات الأسئلة السبعة الأولى ونموذج تواصل مباشر.",
+        "og": "النظام جاهز. التشغيل يبدأ برسالة.",
+        "h1": "النظام جاهز. التشغيل يبدأ برسالة."
+      },
+      "en": {
+        "nav": "Engage",
+        "title": "Engagement & Contact — Start Ordering Your Operations",
+        "desc": "Three engagement cases on one standard: operations management, quality control, and agent-driven automation. Seven first-meeting questions answered.",
+        "og": "The system is ready. Operating starts with a message.",
+        "h1": "The system is ready. Operating starts with a message."
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "ar": "بكالوريوس إدارة الأعمال الدولية",
+      "en": "BSc International Business Administration",
+      "byAr": "جامعة العلوم الحديثة",
+      "byEn": "University of Modern Sciences",
+      "year": "2026",
+      "type": "degree"
+    },
+    {
+      "ar": "برنامج تطوير المهارات الشخصية",
+      "en": "Soft Skills Development Program",
+      "byAr": "McKinsey Forward",
+      "byEn": "McKinsey Forward",
+      "year": "2025",
+      "type": "certificate"
+    },
+    {
+      "ar": "شهادة التسويق الرقمي المتقدم",
+      "en": "Advanced Digital Marketing Certificate",
+      "byAr": "Global TAG",
+      "byEn": "Global TAG",
+      "year": "2024",
+      "type": "certificate"
+    },
+    {
+      "ar": "شهادة أساسيات التسويق الرقمي",
+      "en": "Digital Marketing Fundamentals Certificate",
+      "byAr": "Global TAG",
+      "byEn": "Global TAG",
+      "year": "2023",
+      "type": "certificate"
+    },
+    {
+      "ar": "شهادة التدريب الداخلي",
+      "en": "Internal Training Certificate",
+      "byAr": "مركز إكسيد",
+      "byEn": "Exceed Center",
+      "year": "2024",
+      "type": "certificate"
+    },
+    {
+      "ar": "تدريب العمل المناخي والاستدامة",
+      "en": "Climate Action & Sustainability Training",
+      "byAr": "الملتقى الوطني للبيئة",
+      "byEn": "National Forum for Environment",
+      "year": "2024",
+      "type": "certificate"
+    }
+  ],
+  "roles": [
+    {
+      "ar": {
+        "title": "قائد العمليات والجودة",
+        "org": "إديوستيشن",
+        "place": "الدمام"
+      },
+      "en": {
+        "title": "Operations & Quality Lead",
+        "org": "EduStation",
+        "place": "Dammam"
+      },
+      "from": "2026-03",
+      "to": null
+    },
+    {
+      "ar": {
+        "title": "مدير المطعم والعمليات",
+        "org": "مطعم جزيرة الزربيان",
+        "place": ""
+      },
+      "en": {
+        "title": "Restaurant & Operations Manager",
+        "org": "Zurbian Island Restaurant",
+        "place": ""
+      },
+      "from": "2024-05",
+      "to": "2026-01"
+    },
+    {
+      "ar": {
+        "title": "مشرف إداري",
+        "org": "مطعم جزيرة الزربيان — أحد مشاريع المجموعة",
+        "place": ""
+      },
+      "en": {
+        "title": "Administrative Supervisor",
+        "org": "Zurbian Island Restaurant — a Hermony Group project",
+        "place": ""
+      },
+      "from": "2023-05",
+      "to": "2024-05"
+    },
+    {
+      "ar": {
+        "title": "مساعد إداري — قسم الاستيراد",
+        "org": "مجموعة هيرموني للاستيراد والتصدير",
+        "place": ""
+      },
+      "en": {
+        "title": "Administrative Assistant — Import Department",
+        "org": "Hermony Import & Export Group",
+        "place": ""
+      },
+      "from": "2020-08",
+      "to": "2024-05"
+    }
+  ],
+  "faq": {
+    "ar": [
+      [
+        "كيف تتعامل مع مشكلة تشغيلية جديدة؟",
+        "بالترتيب نفسه في كل مرة: نزول ميداني وملاحظة مباشرة، ثم مراجعة الأرقام لتكتمل الصورة، ثم تحديد السبب الجذري. المعالجة تأتي أخيرا — لأن الحل السريع على العرض يعيد المشكلة بعد أسبوعين."
+      ],
+      [
+        "كيف توظف الذكاء الاصطناعي في العمل التشغيلي؟",
+        "أصمم سير العمل عبر Claude Code ثم أربطه وأشغله من خلال Manus، وأنشر وكلاء ينفذون المهام المتكررة: إعداد التقارير، وإدخال البيانات، ومتابعة المهام، والمراسلات الداخلية. والشرط الثابت أن لكل مخرج مراجعة بشرية — الوكيل ينفذ، والقرار يبقى عندي."
+      ],
+      [
+        "ما حجم الفرق التي أدرتها؟",
+        "قدت فريق مطعم جزيرة الزربيان بالكامل في دور مدير المطعم والعمليات، إلى جانب الإشراف الإداري والتنسيق بين الأقسام في أدوار سابقة وحالية."
+      ],
+      [
+        "هل أسست مشروعا من الصفر؟",
+        "نعم. أشرفت على بناء الهيكل الإداري والتشغيلي لمطعم جزيرة الزربيان منذ مرحلة الإطلاق، ووضعت إجراءات التشغيل المعيارية والجداول اليدوية قبل أي رقمنة، ثم ترقيت لإدارته بالكامل."
+      ],
+      [
+        "ما مستواك في اللغة الإنجليزية؟",
+        "العربية لغتي الأم، والإنجليزية بمستوى متقدم. أدرت مراسلات احترافية مع موردين دوليين في قطاع الاستيراد قرابة أربع سنوات."
+      ],
+      [
+        "ما مؤهلاتك الأكاديمية والمهنية؟",
+        "بكالوريوس إدارة الأعمال الدولية من جامعة العلوم الحديثة (2026)، إلى جانب عدد من البرامج المهنية في تطوير المهارات والتسويق الرقمي والاستدامة. التفاصيل كاملة في السيرة الذاتية."
+      ],
+      [
+        "أين تقيم، وهل أنت متاح؟",
+        "مقيم في الدمام بالمملكة العربية السعودية، وأعمل حاليا قائدا للعمليات والجودة في إديوستيشن. متاح لمناقشة فرص التعاون الإداري والتشغيلي عبر النموذج في هذه الصفحة."
+      ]
+    ],
+    "en": [
+      [
+        "How do you approach a new operational problem?",
+        "In the same order every time: go to the floor and observe directly, then open the numbers so the picture is complete, then identify the root cause. Treatment comes last — because a quick fix on the symptom brings the problem back two weeks later."
+      ],
+      [
+        "How do you use AI in operational work?",
+        "I design workflows with Claude Code, then connect and run them through Manus, and deploy agents that carry out the recurring tasks: report generation, data entry, task follow-up and internal correspondence. The fixed condition is that every output gets human review — the agent executes, the decision stays with me."
+      ],
+      [
+        "How large were the teams you managed?",
+        "I ran the full Zurbian Island Restaurant team as Restaurant and Operations Manager, alongside administrative supervision and cross-department coordination in earlier and current roles."
+      ],
+      [
+        "Have you founded a project from zero?",
+        "Yes. I oversaw the build of Zurbian Island Restaurant's administrative and operational structure from the launch stage, set the standard operating procedures and the manual sheets before any digitisation, and was then promoted to run it in full."
+      ],
+      [
+        "What is your level of English?",
+        "Arabic is my mother tongue and my English is advanced. I ran professional correspondence with international suppliers in the import sector for close to four years."
+      ],
+      [
+        "What are your academic and professional qualifications?",
+        "A BSc in International Business Administration from the University of Modern Sciences (2026), alongside a number of professional programmes in skills development, digital marketing and sustainability. The full detail is in the curriculum vitae."
+      ],
+      [
+        "Where are you based, and are you available?",
+        "I am based in Dammam, Saudi Arabia, currently working as Operations and Quality Lead at EduStation. Available to discuss administrative and operational collaboration through the form on this page."
+      ]
+    ]
+  },
+  "services": {
+    "ar": [
+      [
+        "إدارة العمليات والتشغيل",
+        "للمنشآت التي تحتاج انضباطا يوميا واستمرارية طويلة المدى."
+      ],
+      [
+        "ضبط الجودة والرقابة",
+        "للجهات التي يتفاوت فيها المستوى من يوم لآخر بلا سبب واضح."
+      ],
+      [
+        "أتمتة سير العمل بالوكلاء",
+        "للفرق التي تستهلك ساعاتها في مهام متكررة يمكن أن تنفذ بلا يد."
+      ]
+    ],
+    "en": [
+      [
+        "Operations management",
+        "For organisations that need daily discipline and long-term continuity."
+      ],
+      [
+        "Quality control & oversight",
+        "For organisations where the standard swings day to day with no clear cause."
+      ],
+      [
+        "Agent-driven workflow automation",
+        "For teams spending their hours on recurring tasks that could run without hands."
+      ]
+    ]
+  }
+}

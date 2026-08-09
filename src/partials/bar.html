@@ -1,0 +1,15 @@
+<header class="bar">
+  <a class="bar__brand" href="{{homeHref}}" aria-label="{{author}} — {{ui.home}}">
+    <span class="bar__glyph" aria-hidden="true"></span>
+    <span>{{brand}}<sup>®</sup></span>
+  </a>
+  <div class="bar__side">
+    <span class="bar__where mono" aria-hidden="true">{{city}} <i>·</i> <span class="tr" dir="ltr">GMT+3</span></span>
+    <div class="lang" role="group" aria-label="{{ui.langGroup}}">
+      <a href="{{homeHref}}" aria-current="page" hreflang="{{lang}}" data-lang-set="{{lang}}">{{swatch}}</a>
+      <a href="{{otherHref}}" hreflang="{{otherCode}}" lang="{{otherCode}}" data-lang-set="{{otherCode}}" aria-label="{{ui.otherLang}}">{{otherSwatch}}</a>
+    </div>
+    <a class="btn btn--sig btn--sm" href="{{base}}contact/">{{ui.contact}}</a>
+    <button class="burger" type="button" aria-label="{{ui.menuOpen}}" aria-expanded="false" aria-controls="idx"><span></span><span></span></button>
+  </div>
+</header>

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This page must never be indexed, and it is linked from nowhere. -->
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<title>الاستوديو — إدارة المدونة</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12131a; --panel:#1b1d27; --panel-2:#232633; --line:#31354a;
+    --ink:#eef0f6; --mute:#9aa0b8; --acc:#f2ef00; --bad:#ff8f7a; --ok:#7ee08f;
+    --r:12px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  input,textarea,select{font:inherit;color:inherit}
+  a{color:var(--acc)}
+  ::selection{background:var(--acc);color:#111}
+
+  /* ---- gate ---- */
+  .gate{min-height:100dvh;display:grid;place-items:center;padding:24px}
+  .gate__box{width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px}
+  .gate h1{font-size:1.4rem;font-weight:900;margin-bottom:6px}
+  .gate p{color:var(--mute);font-size:.9rem;margin-bottom:22px}
+  .gate input{width:100%;padding:14px 16px;border-radius:var(--r);background:var(--panel-2);border:1.5px solid var(--line);margin-bottom:12px}
+  .gate input:focus{outline:none;border-color:var(--acc)}
+  .gate button{width:100%;padding:14px;border-radius:var(--r);background:var(--acc);color:#111;font-weight:900}
+  .gate__err{color:var(--bad);font-size:.85rem;min-height:1.4em;margin-top:8px}
+
+  /* ---- app ---- */
+  .app{display:none;min-height:100dvh;grid-template-columns:1fr;gap:0}
+  @media(min-width:1000px){.app{grid-template-columns:300px 1fr}}
+  .side{background:var(--panel);border-inline-end:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:14px}
+  .brand{font-weight:900;font-size:1.05rem;letter-spacing:.02em}
+  .brand span{color:var(--acc)}
+  .side__list{display:grid;gap:8px;overflow-y:auto;flex:1;min-height:120px}
+  .pitem{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:4px;cursor:pointer;transition:.2s}
+  .pitem:hover{border-color:var(--acc)}
+  .pitem.on{border-color:var(--acc);background:#2b2e3d}
+  .pitem b{font-size:.92rem;font-weight:800}
+  .pitem small{color:var(--mute);font-size:.75rem}
+  .pitem__row{display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .del{color:var(--bad);font-size:.78rem;font-weight:800;padding:2px 8px;border-radius:8px;border:1px solid transparent}
+  .del:hover{border-color:var(--bad)}
+
+  .main{padding:24px;display:grid;gap:18px;align-content:start;max-width:1100px}
+  .row{display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:760px){.row--2{grid-template-columns:1fr 1fr}.row--3{grid-template-columns:1fr 1fr 1fr}}
+  label{display:grid;gap:6px;font-size:.82rem;font-weight:800;color:var(--mute)}
+  input[type=text],input[type=date],textarea,select{
+    width:100%;padding:12px 14px;border-radius:var(--r);background:var(--panel-2);
+    border:1.5px solid var(--line);color:var(--ink)
+  }
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
+  textarea{min-height:80px;resize:vertical}
+
+  .tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .tabs button{padding:9px 20px;border-radius:var(--r);font-weight:800;background:var(--panel-2);border:1px solid var(--line)}
+  .tabs button.on{background:var(--acc);color:#111;border-color:var(--acc)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px}
+  .card h2{font-size:1rem;font-weight:900}
+  .hint{color:var(--mute);font-size:.82rem}
+
+  .tools{display:flex;gap:6px;flex-wrap:wrap;background:var(--panel-2);padding:8px;border-radius:var(--r) var(--r) 0 0;border:1.5px solid var(--line);border-bottom:0}
+  .tools button{padding:6px 11px;border-radius:8px;font-size:.82rem;font-weight:800;border:1px solid var(--line)}
+  .tools button:hover{background:var(--acc);color:#111;border-color:var(--acc)}
+  .editor{
+    min-height:340px;padding:18px;border-radius:0 0 var(--r) var(--r);
+    background:#fbfaf6;color:#17181a;border:1.5px solid var(--line);overflow-y:auto
+  }
+  .editor:focus{outline:none;border-color:var(--acc)}
+  .editor h2{font-size:1.4rem;font-weight:900;margin:1.2em 0 .3em}
+  .editor h3{font-size:1.15rem;font-weight:800;margin:1em 0 .3em}
+  .editor p{margin:.7em 0}
+  .editor ul,.editor ol{margin:.7em 0;padding-inline-start:1.4em}
+  .editor ul{list-style:disc}.editor ol{list-style:decimal}
+  .editor blockquote{border-inline-start:3px solid #d9d600;padding-inline-start:14px;margin:.9em 0}
+  .editor img{max-width:100%;border-radius:8px}
+  .editor a{color:#17181a;text-decoration:underline}
+
+  .btn{padding:12px 20px;border-radius:var(--r);font-weight:900;background:var(--panel-2);border:1.5px solid var(--line)}
+  .btn:hover{border-color:var(--acc)}
+  .btn--acc{background:var(--acc);color:#111;border-color:var(--acc)}
+  .btn--sm{padding:8px 14px;font-size:.85rem}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+  .files{display:grid;gap:8px}
+  .file{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px;font-size:.86rem}
+  .file code{color:var(--acc);font-size:.82rem;direction:ltr;font-family:ui-monospace,monospace}
+  .note{background:#20232f;border:1px solid var(--line);border-inline-start:3px solid var(--acc);border-radius:var(--r);padding:14px 16px;font-size:.86rem;color:var(--mute)}
+  .note b{color:var(--ink)}
+  .status{font-size:.85rem;font-weight:800;min-height:1.4em}
+  .status.ok{color:var(--ok)}.status.bad{color:var(--bad)}
+  .cover-prev{max-width:280px;border-radius:var(--r);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<!-- ============ GATE ============ -->
+<div class="gate" id="gate">
+  <div class="gate__box">
+    <h1>استوديو المدونة</h1>
+    <p>هذه الصفحة غير مُدرجة في الموقع ولا في محركات البحث. أدخل كلمة المرور للمتابعة.</p>
+    <input id="pass" type="password" autocomplete="current-password" placeholder="كلمة المرور" aria-label="كلمة المرور">
+    <button id="enter" type="button">دخول</button>
+    <div class="gate__err" id="gerr"></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+  <aside class="side">
+    <div class="brand">استوديو <span>الأشطل</span></div>
+    <button class="btn btn--acc btn--sm" id="newPost" type="button">+ مقال جديد</button>
+    <div class="hint">المقالات المحفوظة في هذا المتصفح. صدّر الملفات ثم ارفعها لينشر الموقع.</div>
+    <div class="side__list" id="list"></div>
+    <div class="bar">
+      <button class="btn btn--sm" id="importBtn" type="button">استيراد posts.json</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="card">
+      <h2>بيانات المقال</h2>
+      <div class="row row--3">
+        <label>المُعرّف في الرابط (slug)
+          <input type="text" id="f-slug" placeholder="operations-systems" dir="ltr">
+        </label>
+        <label>تاريخ النشر
+          <input type="date" id="f-date">
+        </label>
+        <label>تاريخ آخر تعديل
+          <input type="date" id="f-updated">
+        </label>
+      </div>
+
+      <div class="row row--2">
+        <label>صورة الغلاف (اختيارية)
+          <input type="file" id="f-cover" accept="image/*">
+        </label>
+        <label>وصف الصورة (alt) — للوصول ومحركات البحث
+          <input type="text" id="f-coveralt" placeholder="وصف مختصر لما تظهره الصورة">
+        </label>
+      </div>
+      <div id="coverBox" class="hint"></div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button type="button" id="tab-ar" class="on">العربية</button>
+        <button type="button" id="tab-en">English</button>
+      </div>
+
+      <div class="row row--2">
+        <label>العنوان <span id="lblLang">(عربي)</span>
+          <input type="text" id="f-title" placeholder="عنوان المقال">
+        </label>
+        <label>الوسوم (افصل بفاصلة)
+          <input type="text" id="f-tags" placeholder="عمليات, جودة">
+        </label>
+      </div>
+
+      <label>المقتطف — يظهر في نتائج البحث وبطاقة المقال (١٢٠–١٦٠ حرفاً)
+        <textarea id="f-excerpt" maxlength="220" placeholder="جملتان تلخّصان المقال"></textarea>
+      </label>
+      <div class="hint" id="excerptCount"></div>
+
+      <div>
+        <div class="tools">
+          <button type="button" data-cmd="formatBlock" data-val="h2">عنوان H2</button>
+          <button type="button" data-cmd="formatBlock" data-val="h3">عنوان H3</button>
+          <button type="button" data-cmd="formatBlock" data-val="p">فقرة</button>
+          <button type="button" data-cmd="bold"><b>عريض</b></button>
+          <button type="button" data-cmd="italic"><i>مائل</i></button>
+          <button type="button" data-cmd="insertUnorderedList">قائمة</button>
+          <button type="button" data-cmd="insertOrderedList">قائمة مرقّمة</button>
+          <button type="button" data-cmd="formatBlock" data-val="blockquote">اقتباس</button>
+          <button type="button" id="mkLink">رابط</button>
+          <button type="button" id="mkImg">صورة</button>
+          <button type="button" data-cmd="insertHorizontalRule">فاصل</button>
+          <button type="button" data-cmd="removeFormat">إزالة التنسيق</button>
+        </div>
+        <div class="editor" id="editor" contenteditable="true" spellcheck="false"></div>
+        <div class="hint">اللصق يُنظَّف تلقائياً: يُحتفظ بالفقرات والعناوين والقوائم والروابط فقط، ويُحذف أي تنسيق أو كود خارجي.</div>
+      </div>
+
+      <div class="bar">
+        <button class="btn btn--acc" id="save" type="button">حفظ المقال</button>
+        <span class="status" id="saveStatus"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>النشر — نزّل الملفات وارفعها إلى الموقع</h2>
+      <div class="note">
+        الاستوديو <b>لا ينشر شيئاً بنفسه</b> ولا يملك أي مفتاح. يولّد لك ملفات جاهزة، وأنت ترفعها.
+        لذلك حتى لو فتح أحدهم هذه الصفحة فلن يستطيع تغيير حرف في موقعك.
+      </div>
+      <div class="files" id="files"></div>
+      <div class="bar">
+        <button class="btn btn--acc" id="genAll" type="button">توليد كل الملفات</button>
+        <button class="btn" id="dlJson" type="button">تنزيل posts.json فقط</button>
+        <span class="status" id="genStatus"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>تغيير كلمة المرور</h2>
+      <div class="row row--2">
+        <label>كلمة مرور جديدة
+          <input type="text" id="newPass" placeholder="اكتب كلمة المرور الجديدة">
+        </label>
+        <label>البصمة الناتجة — الصقها في <code>studio.html</code>
+          <input type="text" id="newHash" readonly dir="ltr">
+        </label>
+      </div>
+      <div class="hint">افتح <code>studio.html</code> وابحث عن <code>PASS_HASH</code> واستبدل قيمتها بالبصمة أعلاه. كلمة المرور نفسها لا تُخزَّن في أي مكان.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =====================================================================
+     ⚙  SETTINGS
+     PASS_HASH is the SHA-256 of the studio passphrase. The shipped value
+     is the hash of "ashtal-studio" — change it from the panel at the
+     bottom of this page, then paste the new hash here.
+
+     This gate is deliberately modest: the file is public, so anyone
+     determined can read past it. That is acceptable because the studio
+     holds no credentials and cannot publish — it only writes files to
+     your download folder. Publishing still needs your hosting access.
+     ===================================================================== */
+  var PASS_HASH = "357367d1ea92fde30a1c24521b4552fe72380f63e8aa1ef9c3461c6b05238f8a";
+  var SITE = "https://alashtalabdullah.info";
+  var AUTHOR_AR = "عبدالله عبدالكريم الأشطل";
+  var AUTHOR_EN = "Abdullah Abdulkareem Al-Ashtal";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var store = { posts: [] };
+  var currentIdx = -1;
+  var lang = "ar";
+  var coverFile = null;      // {name, blobUrl, blob}
+  var KEY = "ashtal-studio-posts";
+
+  /* ---------- tiny helpers ---------- */
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+  function slugify(s) {
+    return String(s || "").toLowerCase().trim()
+      .replace(/[؀-ۿ]/g, "")           // drop Arabic from URLs
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-").replace(/-+/g, "-")
+      .replace(/^-|-$/g, "").slice(0, 70);
+  }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function words(html) {
+    var d = document.createElement("div"); d.innerHTML = html || "";
+    return (d.textContent || "").trim().split(/\s+/).filter(Boolean).length;
+  }
+  function readMins(html) { return Math.max(1, Math.round(words(html) / 200)); }
+
+  async function sha256(text) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.prototype.map.call(new Uint8Array(buf),
+      function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  function download(name, content, type) {
+    var blob = content instanceof Blob ? content : new Blob([content], { type: type || "text/plain;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+  }
+
+  /* ---------- gate ---------- */
+  $("enter").addEventListener("click", tryEnter);
+  $("pass").addEventListener("keydown", function (e) { if (e.key === "Enter") tryEnter(); });
+  async function tryEnter() {
+    var h = await sha256($("pass").value);
+    if (h === PASS_HASH) {
+      $("gate").style.display = "none";
+      $("app").style.display = "grid";
+      boot();
+    } else {
+      $("gerr").textContent = "كلمة المرور غير صحيحة.";
+      $("pass").value = "";
+    }
+  }
+
+  $("newPass").addEventListener("input", async function () {
+    $("newHash").value = this.value ? await sha256(this.value) : "";
+  });
+
+  /* ---------- persistence (this browser only) ---------- */
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) store = JSON.parse(raw);
+    } catch (e) { /* ignore */ }
+    if (!store || !Array.isArray(store.posts)) store = { posts: [] };
+  }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) { /* ignore */ }
+  }
+
+  /* ---------- list ---------- */
+  function renderList() {
+    var el = $("list"); el.innerHTML = "";
+    if (!store.posts.length) {
+      el.innerHTML = '<div class="hint">لا مقالات بعد. ابدأ بـ«مقال جديد».</div>';
+      return;
+    }
+    store.posts.slice().sort(byDate).forEach(function (p) {
+      var i = store.posts.indexOf(p);
+      var d = document.createElement("div");
+      d.className = "pitem" + (i === currentIdx ? " on" : "");
+      d.innerHTML = '<div class="pitem__row"><b>' + esc(p.ar.title || p.en.title || p.slug) + "</b>" +
+        '<button class="del" type="button">حذف</button></div>' +
+        "<small>" + esc(p.date) + " · " + esc(p.slug) + "</small>";
+      d.addEventListener("click", function (e) {
+        if (e.target.classList.contains("del")) {
+          if (!confirm("حذف هذا المقال من الاستوديو؟ (لن يُحذف من الموقع حتى ترفع الملفات المحدَّثة)")) return;
+          store.posts.splice(i, 1);
+          if (currentIdx === i) { currentIdx = -1; blank(); }
+          persist(); renderList(); renderFiles();
+          return;
+        }
+        currentIdx = i; fill(p); renderList();
+      });
+      el.appendChild(d);
+    });
+  }
+  function byDate(a, b) { return (b.date || "").localeCompare(a.date || ""); }
+
+  /* ---------- form ---------- */
+  function blankPost() {
+    return {
+      slug: "", date: today(), updated: today(), cover: "", coverAlt: { ar: "", en: "" },
+      ar: { title: "", excerpt: "", tags: [], body: "" },
+      en: { title: "", excerpt: "", tags: [], body: "" }
+    };
+  }
+  var draft = blankPost();
+
+  function blank() { draft = blankPost(); coverFile = null; fill(draft); }
+
+  function fill(p) {
+    draft = JSON.parse(JSON.stringify(p));
+    $("f-slug").value = draft.slug;
+    $("f-date").value = draft.date;
+    $("f-updated").value = draft.updated || draft.date;
+    $("f-coveralt").value = draft.coverAlt[lang] || "";
+    $("coverBox").innerHTML = draft.cover
+      ? 'الغلاف الحالي: <code>' + esc(draft.cover) + "</code>"
+      : "بلا غلاف";
+    swapLang(lang);
+  }
+
+  function grabLang() {
+    draft[lang].title = $("f-title").value.trim();
+    draft[lang].excerpt = $("f-excerpt").value.trim();
+    draft[lang].tags = $("f-tags").value.split(",").map(function (t) { return t.trim(); }).filter(Boolean);
+    draft[lang].body = clean($("editor").innerHTML);
+    draft.coverAlt[lang] = $("f-coveralt").value.trim();
+  }
+
+  function swapLang(next) {
+    lang = next;
+    $("tab-ar").classList.toggle("on", lang === "ar");
+    $("tab-en").classList.toggle("on", lang === "en");
+    $("lblLang").textContent = lang === "ar" ? "(عربي)" : "(English)";
+    var d = draft[lang];
+    $("f-title").value = d.title || "";
+    $("f-excerpt").value = d.excerpt || "";
+    $("f-tags").value = (d.tags || []).join(", ");
+    $("f-coveralt").value = draft.coverAlt[lang] || "";
+    var ed = $("editor");
+    ed.innerHTML = d.body || "";
+    ed.dir = lang === "ar" ? "rtl" : "ltr";
+    ed.style.textAlign = lang === "ar" ? "right" : "left";
+    countExcerpt();
+  }
+
+  $("tab-ar").addEventListener("click", function () { grabLang(); swapLang("ar"); });
+  $("tab-en").addEventListener("click", function () { grabLang(); swapLang("en"); });
+
+  $("f-title").addEventListener("blur", function () {
+    if (!$("f-slug").value && lang === "en") $("f-slug").value = slugify(this.value);
+  });
+  $("f-excerpt").addEventListener("input", countExcerpt);
+  function countExcerpt() {
+    var n = $("f-excerpt").value.length;
+    $("excerptCount").textContent = n + " حرفاً " +
+      (n === 0 ? "" : n < 90 ? "— قصير، الأفضل ١٢٠–١٦٠" : n > 175 ? "— طويل، قد يُقتطع في نتائج البحث" : "— ممتاز");
+  }
+
+  /* ---------- editor ---------- */
+  var ed = $("editor");
+  document.querySelectorAll(".tools [data-cmd]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      ed.focus();
+      document.execCommand(b.dataset.cmd, false, b.dataset.val || null);
+    });
+  });
+  $("mkLink").addEventListener("click", function () {
+    var url = prompt("رابط:");
+    if (url) { ed.focus(); document.execCommand("createLink", false, url); }
+  });
+  $("mkImg").addEventListener("click", function () {
+    var url = prompt("مسار الصورة داخل الموقع (مثال: ../assets/blog/name.jpg):");
+    if (url) { ed.focus(); document.execCommand("insertImage", false, url); }
+  });
+
+  // paste is sanitised down to a safe subset
+  ed.addEventListener("paste", function (e) {
+    e.preventDefault();
+    var html = e.clipboardData.getData("text/html");
+    var text = e.clipboardData.getData("text/plain");
+    var out = html ? clean(html) : text.split(/\n{2,}/).map(function (p) {
+      return "<p>" + esc(p.trim()).replace(/\n/g, "<br>") + "</p>";
+    }).join("");
+    document.execCommand("insertHTML", false, out);
+  });
+
+  var ALLOWED = { P: 1, H2: 1, H3: 1, H4: 1, STRONG: 1, B: 1, EM: 1, I: 1, A: 1, UL: 1, OL: 1, LI: 1,
+                  BLOCKQUOTE: 1, BR: 1, HR: 1, IMG: 1, FIGURE: 1, FIGCAPTION: 1, CODE: 1 };
+  function clean(html) {
+    var d = document.createElement("div");
+    d.innerHTML = html || "";
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 1) {
+          if (n.tagName === "SCRIPT" || n.tagName === "STYLE" || n.tagName === "IFRAME") { n.remove(); return; }
+          walk(n);
+          if (!ALLOWED[n.tagName]) {
+            // unwrap unknown tags, keeping their content
+            while (n.firstChild) n.parentNode.insertBefore(n.firstChild, n);
+            n.remove();
+            return;
+          }
+          Array.prototype.slice.call(n.attributes).forEach(function (a) {
+            var keep = (n.tagName === "A" && a.name === "href") ||
+                       (n.tagName === "IMG" && (a.name === "src" || a.name === "alt"));
+            if (!keep) n.removeAttribute(a.name);
+          });
+          if (n.tagName === "A") {
+            var href = n.getAttribute("href") || "";
+            if (/^javascript:/i.test(href)) n.setAttribute("href", "#");
+            if (/^https?:/i.test(href)) { n.setAttribute("target", "_blank"); n.setAttribute("rel", "noopener"); }
+          }
+        } else if (n.nodeType === 8) { n.remove(); }
+      });
+    })(d);
+    return d.innerHTML.replace(/<div>/g, "<p>").replace(/<\/div>/g, "</p>").trim();
+  }
+
+  /* ---------- cover ---------- */
+  $("f-cover").addEventListener("change", function () {
+    var file = this.files && this.files[0];
+    if (!file) return;
+    var img = new Image();
+    img.onload = function () {
+      var max = 1600;
+      var w = img.width, h = img.height;
+      if (w > max) { h = Math.round(h * max / w); w = max; }
+      var c = document.createElement("canvas"); c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      c.toBlob(function (blob) {
+        var slug = $("f-slug").value || slugify($("f-title").value) || "cover";
+        coverFile = { name: slug + "-cover.jpg", blob: blob };
+        draft.cover = "assets/blog/" + coverFile.name;
+        $("coverBox").innerHTML =
+          '<img class="cover-prev" src="' + URL.createObjectURL(blob) + '" alt=""><br>' +
+          "الحجم بعد الضغط: " + Math.round(blob.size / 1024) + " ك.ب — سيُحفَظ باسم <code>" + esc(draft.cover) + "</code>";
+      }, "image/jpeg", 0.82);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  /* ---------- save ---------- */
+  $("newPost").addEventListener("click", function () { currentIdx = -1; blank(); renderList(); });
+
+  $("save").addEventListener("click", function () {
+    grabLang();
+    draft.slug = slugify($("f-slug").value) || slugify(draft.en.title) || slugify(draft.ar.title) || ("post-" + Date.now());
+    draft.date = $("f-date").value || today();
+    draft.updated = $("f-updated").value || draft.date;
+
+    var problems = [];
+    if (!draft.ar.title && !draft.en.title) problems.push("عنوان واحد على الأقل");
+    if (!draft.ar.body && !draft.en.body) problems.push("نص المقال");
+    if (problems.length) {
+      setStatus("saveStatus", "ينقص: " + problems.join("، "), false);
+      return;
+    }
+
+    if (currentIdx >= 0) store.posts[currentIdx] = draft;
+    else { store.posts.push(draft); currentIdx = store.posts.length - 1; }
+    persist(); renderList(); renderFiles();
+    setStatus("saveStatus", "حُفظ في المتصفح — لا تنسَ توليد الملفات ورفعها.", true);
+  });
+
+  function setStatus(id, msg, ok) {
+    var e = $(id); e.textContent = msg; e.className = "status " + (ok ? "ok" : "bad");
+    setTimeout(function () { e.textContent = ""; e.className = "status"; }, 6000);
+  }
+
+  /* ---------- import ---------- */
+  $("importBtn").addEventListener("click", function () { $("importFile").click(); });
+  $("importFile").addEventListener("change", function () {
+    var f = this.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var data = JSON.parse(r.result);
+        if (!Array.isArray(data.posts)) throw new Error("صيغة غير متوقعة");
+        store = data; persist(); currentIdx = -1; blank(); renderList();
+        setStatus("genStatus", "استُورد " + data.posts.length + " مقالاً.", true);
+      } catch (e) { setStatus("genStatus", "تعذّر قراءة الملف: " + e.message, false); }
+    };
+    r.readAsText(f);
+  });
+
+  /* =====================================================================
+     GENERATOR — the same templates that produced the shipped blog pages
+     ===================================================================== */
+  var T = {
+    ar: {
+      dir: "rtl", lang: "ar",
+      blogTitle: "المدونة — عبدالله الأشطل",
+      blogDesc: "مقالات عملية عن بناء أنظمة التشغيل وضبط الجودة وتنظيم العمل داخل بيئات غير منظّمة — بقلم عبدالله الأشطل، قائد عمليات وإدارة جودة في الدمام.",
+      h1: "المدونة", eyebrow: "كتابات", home: "الرئيسية", blog: "المدونة",
+      lead: "ما أتعلّمه في الميدان: بناء الأنظمة، ضبط الجودة، وتنظيم العمل قبل أن يتحوّل إلى فوضى.",
+      empty: "لا توجد مقالات منشورة بعد.", emptySub: "أول مقال في الطريق.",
+      more: "اقرأ المقال",
+      back: "كل المقالات", updated: "آخر تحديث", other: "English", otherHref: "blog-en.html",
+      author: AUTHOR_AR
+    },
+    en: {
+      dir: "ltr", lang: "en",
+      blogTitle: "Blog — Abdullah Al-Ashtal",
+      blogDesc: "Practical articles on building operating systems, holding quality and organising work in messy environments — by Abdullah Al-Ashtal, Operations & Quality Lead.",
+      h1: "The blog", eyebrow: "Writing", home: "Home", blog: "Blog",
+      lead: "What the field keeps teaching me: building systems, holding quality, and organising work before it turns into noise.",
+      empty: "No articles published yet.", emptySub: "The first one is on its way.",
+      more: "Read the article",
+      back: "All articles", updated: "Updated", other: "العربية", otherHref: "blog.html",
+      author: AUTHOR_EN
+    }
+  };
+
+  /* Arabic counts a duration three different ways; English does not. */
+  function readLabel(n, l) {
+    if (l === "en") return n + " min read";
+    if (n === 1) return "دقيقة قراءة";
+    if (n === 2) return "دقيقتا قراءة";
+    if (n <= 10) return n + " دقائق قراءة";
+    return n + " دقيقة قراءة";
+  }
+
+  function head(o) {
+    // o: {lang, title, desc, canonical, altAr, altEn, image, type, jsonld, depth}
+    var up = o.depth ? "../" : "";
+    var t = T[o.lang];
+    return '<!DOCTYPE html>\n<html lang="' + t.lang + '" dir="' + t.dir + '">\n<head>\n' +
+'<meta charset="UTF-8">\n' +
+'<script>document.documentElement.classList.add("js");<\/script>\n\n' +
+'<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+'<title>' + esc(o.title) + '</title>\n' +
+'<meta name="description" content="' + esc(o.desc) + '">\n' +
+'<meta name="author" content="' + esc(t.author) + '">\n' +
+'<link rel="canonical" href="' + o.canonical + '">\n' +
+'<link rel="alternate" hreflang="ar" href="' + o.altAr + '">\n' +
+'<link rel="alternate" hreflang="en" href="' + o.altEn + '">\n' +
+'<link rel="alternate" hreflang="x-default" href="' + o.altAr + '">\n' +
+'<link rel="icon" href="' + up + 'assets/img/favicon.svg" type="image/svg+xml">\n\n' +
+'<meta property="og:type" content="' + (o.type || "website") + '">\n' +
+'<meta property="og:locale" content="' + (o.lang === "ar" ? "ar_SA" : "en_US") + '">\n' +
+'<meta property="og:site_name" content="' + esc(t.author) + '">\n' +
+'<meta property="og:title" content="' + esc(o.title) + '">\n' +
+'<meta property="og:description" content="' + esc(o.desc) + '">\n' +
+'<meta property="og:url" content="' + o.canonical + '">\n' +
+'<meta property="og:image" content="' + o.image + '">\n' +
+'<meta name="twitter:card" content="summary_large_image">\n' +
+'<meta name="twitter:title" content="' + esc(o.title) + '">\n' +
+'<meta name="twitter:description" content="' + esc(o.desc) + '">\n' +
+'<meta name="twitter:image" content="' + o.image + '">\n\n' +
+'<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+'<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">\n' +
+'<link rel="stylesheet" href="' + up + 'assets/css/style.css">\n\n' +
+'<script type="application/ld+json">\n' + JSON.stringify(o.jsonld, null, 2) + '\n<\/script>\n' +
+'</head>\n<body>\n';
+  }
+
+  function topbar(l, depth) {
+    var up = depth ? "../" : "";
+    var t = T[l];
+    var brand = l === "ar" ? "الأشطل" : "AL-ASHTAL";
+    return '  <div class="topbar">\n' +
+'    <a class="topbar__brand" href="' + up + (l === "ar" ? "index.html" : "en.html") + '">' + brand + '<sup>®</sup></a>\n' +
+'    <div class="topbar__side">\n' +
+'      <div class="lang">\n' +
+'        <a href="' + (l === "ar" ? "#" : up + "blog.html") + '"' + (l === "ar" ? ' aria-current="true"' : "") + '>ع</a>\n' +
+'        <a href="' + (l === "en" ? "#" : up + "blog-en.html") + '"' + (l === "en" ? ' aria-current="true"' : "") + '>EN</a>\n' +
+'      </div>\n' +
+'      <a class="btn btn--acc btn--sm" href="' + up + (l === "ar" ? "index.html" : "en.html") + '">' + (l === "ar" ? "الموقع" : "The site") + '</a>\n' +
+'    </div>\n' +
+'  </div>\n';
+  }
+
+  function slimFoot(l, depth) {
+    var up = depth ? "../" : "";
+    var t = T[l];
+    var year = new Date().getFullYear();
+    return '    <footer class="foot foot--slim">\n' +
+'      <div class="wrap">\n' +
+'        <div class="foot__bar">\n' +
+'          <span>© ' + year + " " + esc(t.author) + (l === "ar" ? " — جميع الحقوق محفوظة." : " — All rights reserved.") + '</span>\n' +
+'          <span><a href="' + up + (l === "ar" ? "index.html" : "en.html") + '">' + (l === "ar" ? "العودة إلى الموقع" : "Back to the site") + '</a></span>\n' +
+'        </div>\n' +
+'      </div>\n' +
+'    </footer>\n';
+  }
+
+  function cardFor(p, l, depth) {
+    var up = depth ? "../" : "";
+    var t = T[l], d = p[l];
+    if (!d.title) return "";
+    var href = up + "blog/" + p.slug + (l === "en" ? "-en" : "") + ".html";
+    var mins = readMins(d.body);
+    var media = p.cover
+      ? '        <div class="post-card__media"><img src="' + up + esc(p.cover) + '" alt="' + esc(p.coverAlt[l] || "") + '" width="1600" height="900" loading="lazy"></div>\n'
+      : "";
+    return '        <a class="post-card" href="' + href + '">\n' + media +
+'          <div class="post-card__body">\n' +
+'            <div class="post-card__meta"><time datetime="' + p.date + '">' + p.date + '</time><span>·</span><span>' + readLabel(mins, l) + '</span></div>\n' +
+'            <h2>' + esc(d.title) + '</h2>\n' +
+'            <p>' + esc(d.excerpt) + '</p>\n' +
+'            <span class="post-card__more">' + t.more + '</span>\n' +
+'          </div>\n' +
+'        </a>\n';
+  }
+
+  function blogIndex(l) {
+    var t = T[l];
+    var canonical = SITE + "/" + (l === "ar" ? "blog.html" : "blog-en.html");
+    var list = store.posts.slice().sort(byDate).filter(function (p) { return p[l].title; });
+    var jsonld = {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": t.blogTitle,
+      "description": t.blogDesc,
+      "inLanguage": l,
+      "url": canonical,
+      "author": { "@type": "Person", "name": t.author, "url": SITE + "/" },
+      "blogPost": list.map(function (p) {
+        return {
+          "@type": "BlogPosting",
+          "headline": p[l].title,
+          "datePublished": p.date,
+          "url": SITE + "/blog/" + p.slug + (l === "en" ? "-en" : "") + ".html"
+        };
+      })
+    };
+
+    var body = list.length
+      ? '      <div class="posts">\n' + list.map(function (p) { return cardFor(p, l, 0); }).join("") + "      </div>\n"
+      : '      <div class="empty"><b>' + t.empty + "</b>" + t.emptySub + "</div>\n";
+
+    return head({
+      lang: l, title: t.blogTitle, desc: t.blogDesc, canonical: canonical,
+      altAr: SITE + "/blog.html", altEn: SITE + "/blog-en.html",
+      image: SITE + "/assets/img/abdullah.jpg", type: "website", jsonld: jsonld, depth: 0
+    }) +
+'<div class="shell">\n' +
+'  <div class="page page--doc">\n' +
+'    <header class="dochead">\n' +
+topbar(l, 0) +
+'      <div class="dochead__inner">\n' +
+'        <nav class="crumbs" aria-label="' + (l === "ar" ? "مسار التنقّل" : "Breadcrumb") + '">\n' +
+'          <a href="' + (l === "ar" ? "index.html" : "en.html") + '">' + t.home + '</a><span>/</span><span>' + t.blog + '</span>\n' +
+'        </nav>\n' +
+'        <span class="eyebrow">' + t.eyebrow + '</span>\n' +
+'        <h1 class="h2">' + t.h1 + '</h1>\n' +
+'        <p class="lead">' + t.lead + '</p>\n' +
+'      </div>\n' +
+'    </header>\n\n' +
+'    <main class="wrap">\n' + body + '    </main>\n\n' +
+slimFoot(l, 0) +
+'  </div>\n</div>\n\n' +
+'<script src="assets/js/main.js" defer><\/script>\n' +
+'</body>\n</html>\n';
+  }
+
+  function articlePage(p, l) {
+    var t = T[l], d = p[l];
+    var slug = p.slug + (l === "en" ? "-en" : "");
+    var canonical = SITE + "/blog/" + slug + ".html";
+    var image = p.cover ? SITE + "/" + p.cover : SITE + "/assets/img/abdullah.jpg";
+    var mins = readMins(d.body);
+
+    var jsonld = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": d.title,
+      "description": d.excerpt,
+      "inLanguage": l,
+      "datePublished": p.date,
+      "dateModified": p.updated || p.date,
+      "image": [image],
+      "wordCount": words(d.body),
+      "keywords": (d.tags || []).join(", "),
+      "author": { "@type": "Person", "name": t.author, "url": SITE + "/" },
+      "publisher": { "@type": "Person", "name": t.author, "url": SITE + "/" },
+      "mainEntityOfPage": { "@type": "WebPage", "@id": canonical },
+      "isPartOf": { "@type": "Blog", "@id": SITE + "/" + (l === "ar" ? "blog.html" : "blog-en.html") }
+    };
+    var crumbs = {
+      "@context": "https://schema.org", "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": t.home, "item": SITE + "/" + (l === "ar" ? "" : "en.html") },
+        { "@type": "ListItem", "position": 2, "name": t.blog, "item": SITE + "/" + (l === "ar" ? "blog.html" : "blog-en.html") },
+        { "@type": "ListItem", "position": 3, "name": d.title }
+      ]
+    };
+
+    var cover = p.cover
+      ? '        <figure class="post__cover">\n' +
+        '          <img src="../' + esc(p.cover) + '" alt="' + esc(p.coverAlt[l] || "") + '" width="1600" height="900" fetchpriority="high">\n' +
+        (p.coverAlt[l] ? "          <figcaption>" + esc(p.coverAlt[l]) + "</figcaption>\n" : "") +
+        "        </figure>\n"
+      : "";
+
+    var tags = (d.tags || []).length
+      ? '          <div class="tagline">' + d.tags.map(function (x) { return '<span class="tag">' + esc(x) + "</span>"; }).join("") + "</div>\n"
+      : "";
+
+    return head({
+      lang: l, title: d.title + " — " + t.author, desc: d.excerpt, canonical: canonical,
+      altAr: SITE + "/blog/" + p.slug + ".html", altEn: SITE + "/blog/" + p.slug + "-en.html",
+      image: image, type: "article", jsonld: jsonld, depth: 1
+    }).replace("</head>", '<script type="application/ld+json">\n' + JSON.stringify(crumbs, null, 2) + '\n<\/script>\n</head>') +
+'<div class="shell">\n' +
+'  <div class="page page--doc">\n' +
+'    <header class="dochead">\n' +
+topbar(l, 1) +
+'      <div class="dochead__inner">\n' +
+'        <nav class="crumbs" aria-label="' + (l === "ar" ? "مسار التنقّل" : "Breadcrumb") + '">\n' +
+'          <a href="../' + (l === "ar" ? "index.html" : "en.html") + '">' + t.home + '</a><span>/</span>' +
+'<a href="../' + (l === "ar" ? "blog.html" : "blog-en.html") + '">' + t.blog + '</a><span>/</span><span>' + esc(d.title) + '</span>\n' +
+'        </nav>\n' +
+'      </div>\n' +
+'    </header>\n\n' +
+'    <main class="post">\n' +
+'      <article>\n' +
+'        <div class="post__head">\n' +
+'          <h1 class="h2">' + esc(d.title) + '</h1>\n' +
+'          <div class="post__meta">\n' +
+'            <time datetime="' + p.date + '">' + p.date + '</time><span>·</span>\n' +
+'            <span>' + readLabel(mins, l) + '</span>\n' +
+(p.updated && p.updated !== p.date ? '            <span>·</span><span>' + t.updated + " " + p.updated + '</span>\n' : "") +
+'          </div>\n' + tags +
+'        </div>\n\n' + cover +
+'        <div class="prose">\n' + d.body + "\n        </div>\n\n" +
+'        <div class="post__foot">\n' +
+'          <a class="btn btn--ghost" href="../' + (l === "ar" ? "blog.html" : "blog-en.html") + '">' + t.back + '</a>\n' +
+'          <a class="btn btn--acc" href="../' + (l === "ar" ? "index.html#contact" : "en.html#contact") + '">' + (l === "ar" ? "تواصل معي" : "Get in touch") + '</a>\n' +
+'        </div>\n' +
+'      </article>\n' +
+'    </main>\n\n' +
+slimFoot(l, 1) +
+'  </div>\n</div>\n\n' +
+'<script src="../assets/js/main.js" defer><\/script>\n' +
+'</body>\n</html>\n';
+  }
+
+  function sitemap() {
+    var now = today();
+    var urls = [
+      { loc: SITE + "/", pri: "1.0", mod: now },
+      { loc: SITE + "/en.html", pri: "0.9", mod: now },
+      { loc: SITE + "/blog.html", pri: "0.8", mod: now },
+      { loc: SITE + "/blog-en.html", pri: "0.8", mod: now }
+    ];
+    store.posts.forEach(function (p) {
+      if (p.ar.title) urls.push({ loc: SITE + "/blog/" + p.slug + ".html", pri: "0.7", mod: p.updated || p.date });
+      if (p.en.title) urls.push({ loc: SITE + "/blog/" + p.slug + "-en.html", pri: "0.7", mod: p.updated || p.date });
+    });
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+urls.map(function (u) {
+  return "  <url>\n    <loc>" + u.loc + "</loc>\n    <lastmod>" + u.mod +
+         "</lastmod>\n    <priority>" + u.pri + "</priority>\n  </url>\n";
+}).join("") + "</urlset>\n";
+  }
+
+  // exposed so the shipped blog pages can be generated from these very
+  // templates — the studio is the single source of truth for their markup
+  window.ASHTAL_GEN = {
+    setPosts: function (arr) { store = { posts: arr || [] }; },
+    blogIndex: blogIndex, articlePage: articlePage, sitemap: sitemap
+  };
+
+  /* ---------- file panel ---------- */
+  function renderFiles() {
+    var box = $("files"); box.innerHTML = "";
+    var items = [
+      { name: "blog.html", where: "الجذر", make: function () { return blogIndex("ar"); } },
+      { name: "blog-en.html", where: "الجذر", make: function () { return blogIndex("en"); } },
+      { name: "sitemap.xml", where: "الجذر", make: sitemap },
+      { name: "posts.json", where: "assets/data/", make: function () { return JSON.stringify(store, null, 1); } }
+    ];
+    store.posts.forEach(function (p) {
+      if (p.ar.title) items.push({ name: p.slug + ".html", where: "blog/", make: function () { return articlePage(p, "ar"); } });
+      if (p.en.title) items.push({ name: p.slug + "-en.html", where: "blog/", make: function () { return articlePage(p, "en"); } });
+    });
+    if (coverFile) items.push({ name: coverFile.name, where: "assets/blog/", blob: coverFile.blob });
+
+    items.forEach(function (it) {
+      var row = document.createElement("div");
+      row.className = "file";
+      row.innerHTML = "<span>" + esc(it.name) + ' → <code>' + esc(it.where) + "</code></span>";
+      var b = document.createElement("button");
+      b.className = "btn btn--sm"; b.type = "button"; b.textContent = "تنزيل";
+      b.addEventListener("click", function () {
+        if (it.blob) download(it.name, it.blob);
+        else download(it.name, it.make(), it.name.endsWith(".xml") ? "application/xml" :
+                                          it.name.endsWith(".json") ? "application/json" : "text/html;charset=utf-8");
+      });
+      row.appendChild(b);
+      box.appendChild(row);
+    });
+  }
+
+  $("genAll").addEventListener("click", function () {
+    renderFiles();
+    var btns = $("files").querySelectorAll("button");
+    var i = 0;
+    (function next() {
+      if (i >= btns.length) { setStatus("genStatus", "نُزِّلت " + btns.length + " ملفات — ارفعها بنفس المسارات.", true); return; }
+      btns[i++].click();
+      setTimeout(next, 350);
+    })();
+  });
+  $("dlJson").addEventListener("click", function () {
+    download("posts.json", JSON.stringify(store, null, 1), "application/json");
+  });
+
+  /* ---------- boot ---------- */
+  function boot() {
+    load();
+    blank();
+    renderList();
+    renderFiles();
+    // try to pick up what is already published, so edits start from live data
+    fetch("assets/data/posts.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (data && Array.isArray(data.posts) && data.posts.length && !store.posts.length) {
+          store = data; persist(); renderList(); renderFiles();
+        }
+      })
+      .catch(function () { /* offline or not published yet */ });
+  }
+})();
+</script>
+</body>
+</html>

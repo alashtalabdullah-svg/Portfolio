@@ -1,0 +1,29 @@
+<!-- The onward link is not decoration: a page nothing links to is a page
+     the crawler reaches last and ranks lowest, and a reader who hits the
+     bottom with no next step leaves. Every page names the one after it. -->
+<footer class="site-foot {{footClass}}">
+  <div class="wrap">
+    {{{onward}}}
+
+    <div class="sign" aria-hidden="true"><span>{{brand}}<sup>®</sup></span></div>
+
+    <nav class="foot__map" aria-label="{{ui.indexNav}}">
+      <ol>{{{navList}}}</ol>
+      <div class="foot__side">
+        <a href="{{cv}}" download data-cue="{{ui.cvCue}}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>{{ui.cvLabel}}</a>
+        <a href="{{otherHref}}" hreflang="{{otherCode}}" lang="{{otherCode}}" data-lang-set="{{otherCode}}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>{{ui.otherLang}}</a>
+        <div class="foot__soc">
+          <a href="https://www.linkedin.com/in/abdullah-al-ashtal/" target="_blank" rel="noopener me" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><use href="#i-linkedin"/></svg></a>
+          <a href="https://www.instagram.com/3bdu_ak/" target="_blank" rel="noopener me" aria-label="Instagram"><svg viewBox="0 0 24 24"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.facebook.com/abdallah.alashtal" target="_blank" rel="noopener me" aria-label="Facebook"><svg viewBox="0 0 24 24"><use href="#i-facebook"/></svg></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="foot">
+      <span class="mono">© <span id="yr">{{year}}</span> {{author}}</span>
+      <span class="mono">{{ui.footRole}} <i>·</i> {{city}}</span>
+      <span class="mono foot__end">{{ui.meter}} <b data-order-pct>100{{pc}}</b></span>
+    </div>
+  </div>
+</footer>

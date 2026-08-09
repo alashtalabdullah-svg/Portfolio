@@ -1,0 +1,8 @@
+# Everything published here is open to crawlers — nothing is disallowed.
+# A Disallow line publishes the address it is trying to hide to anyone
+# who reads this file, so unlinked material is simply left out instead.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://alashtalabdullah.info/sitemap.xml

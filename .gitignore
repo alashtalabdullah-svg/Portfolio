@@ -1,0 +1,6 @@
+# The dev server's scratch and OS noise. `docs/` is NOT ignored: it is the
+# published output and GitHub Pages serves it straight from this branch.
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
