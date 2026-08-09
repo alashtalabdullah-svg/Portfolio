@@ -550,21 +550,34 @@ ${site.pages.map((p) => `- [${p.ar.nav}](${urlFor("ar", p)}): ${p.ar.desc}`).joi
    CNAME stays, below: GitHub Pages keeps serving the domain until DNS
    moves, and a deploy without it would drop the custom domain. */
 
-/* ---------- legacy redirect ----------
-   The previous build served English at /en.html. That URL may already
-   be in someone's history or an index; a meta-refresh plus a canonical
-   hands its weight to the new address instead of dropping it. */
-writeFileSync(
-  join(DIST, "en.html"),
-  `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+/* ---------- legacy redirects ----------
+   English used to live at /en.html, and then under /en/. Both addresses
+   are vacated now that English owns the root, and both may sit in a
+   bookmark, a history or an index.
+
+   `vercel.json` answers these with a real 301, which is the better
+   answer — but only on Vercel. These static stubs are what keeps the
+   same URLs alive on GitHub Pages, which serves the domain until DNS
+   moves. A redirect that only works on the host you have not switched
+   to yet is not a redirect. Where both exist Vercel's 301 wins and
+   these are never reached. */
+if (site.primary === "en") {
+  const stub = (to) =>
+    `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <title>Redirecting…</title>
-<link rel="canonical" href="${site.origin}/en/">
+<link rel="canonical" href="${site.origin}${to}">
 <meta name="robots" content="noindex,follow">
-<meta http-equiv="refresh" content="0; url=/en/">
-</head><body><p>This page moved to <a href="/en/">/en/</a>.</p></body></html>
-`,
-  "utf8"
-);
+<meta http-equiv="refresh" content="0; url=${to}">
+</head><body><p>This page moved to <a href="${to}">${to}</a>.</p></body></html>
+`;
+
+  writeFileSync(join(DIST, "en.html"), stub("/"), "utf8");
+  for (const p of site.pages) {
+    const dir = join(DIST, "en", p.out);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "index.html"), stub(pathFor("en", p)), "utf8");
+  }
+}
 
 console.log(`built ${written.length} pages → docs/  (${(saved / 1024).toFixed(1)}KB of comments and indentation stripped from the shipped copy)`);
 written.forEach((u) => console.log("  " + u));

@@ -1,7 +1,7 @@
 # موقع عبدالله الأشطل — Abdullah Al-Ashtal
 
-أربع صفحات في لغتين، مخرَجها HTML ثابت خالص.
-Four pages in two languages, output as pure static HTML.
+أربع صفحات في لغتين، مخرَجها HTML ثابت خالص. **الإنجليزية هي التي تفتح**، والعربية تحت `/ar/`.
+Four pages in two languages, output as pure static HTML. **English opens at the root**; Arabic lives under `/ar/`.
 
 **الفكرة الواحدة:** «من الفوضى إلى النظام». الموقع لا يتحدّث عن الفكرة — إنه يؤدّيها.
 **The single idea:** *from chaos to order*. The site does not describe the idea; it performs it.
@@ -11,15 +11,38 @@ Four pages in two languages, output as pure static HTML.
 ## التشغيل — Running
 
 ```bash
-node build.mjs            # يبني dist/ — builds dist/
-node build.mjs --serve    # يبني ثم يخدمها على :4444 — builds, then serves on :4444
+npm run build     # أو / or: node build.mjs      → يبني docs/
+npm run dev       # أو / or: node build.mjs --serve → ثم يخدمها على :4444
 ```
 
-**ما تنشره هو محتوى `dist/` وحده.** لا شيء آخر يُرفع.
-**What you publish is the contents of `dist/`, and nothing else.**
-
-بلا اعتماديات. لا `npm install`، ولا `node_modules`، ولا شيء يتقادم.
+بلا اعتماديات. لا `npm install` ولا `node_modules` ولا شيء يتقادم.
 No dependencies. No `npm install`, no `node_modules`, nothing to rot.
+
+---
+
+## النشر — Deploying
+
+المخرَج `docs/` **ومصدر الموقع في المستودع نفسه**، ويخدمه مضيفان في آنٍ واحد أثناء الانتقال:
+
+The output is `docs/` and **the source sits in the same repository**, served by two hosts at once during the move:
+
+| المضيف | Host | كيف | How |
+|---|---|---|---|
+| **Vercel** *(المقصود)* | *(intended)* | `vercel.json` في جذر المستودع: `buildCommand: node build.mjs`, `outputDirectory: docs` | |
+| GitHub Pages *(مؤقّت)* | *(interim)* | فرع `main` ← مجلّد `/docs`، ويبقى يعمل حتى ينتقل الـDNS | keeps serving until DNS moves |
+
+**دفعة واحدة = نشر.** ولا يوجد CI: الـtoken الحالي بلا صلاحية `workflow`، ولتفعيل GitHub Actions شغّل `gh auth refresh -s workflow` أولاً.
+**One push is one deploy.** There is no CI: the current token lacks the `workflow` scope — run `gh auth refresh -s workflow` first if you want GitHub Actions.
+
+### ما يفعله `vercel.json` — What `vercel.json` does
+
+Vercel يقرأ الملف من **جذر المستودع** لا من مجلّد المخرَج. وفيه: تحويلات 301 من العناوين الإنجليزية القديمة، ورؤوس الأمان، وسياسة التخزين المؤقت (سنة كاملة للأصول، وتحقّق دائم لصفحات HTML).
+Vercel reads it from the **repository root**, not from the output directory. It carries the 301s from the old English addresses, the security headers, and the cache policy (a year for assets, always-revalidate for HTML).
+
+### الفرع الاحتياطي — The recovery branch
+
+`legacy-template-2026-05` يحمل القالب القديم كما كان قبل هذا البناء.
+`legacy-template-2026-05` holds the previous template exactly as it was.
 
 ---
 
@@ -61,7 +84,8 @@ src/
   partials/             sprite · bar · idx · foot
   pages/                home|record|ai|contact  ×  .ar.html|.en.html
 assets/                 css · js · img · cv  (تُنسخ كما هي — copied verbatim)
-dist/                   المخرَج، يُمحى ويُبنى في كل مرّة — output, wiped and rebuilt
+docs/                   المخرَج، يُمحى ويُبنى في كل مرّة — output, wiped and rebuilt
+vercel.json             إعداد Vercel، يُقرأ من الجذر — Vercel config, read from the root
 _archive/               الإصدارات السابقة — previous versions
 ```
 
