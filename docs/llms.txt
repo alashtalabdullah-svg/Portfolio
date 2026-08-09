@@ -6,22 +6,22 @@
 > automation (Claude Code, Manus, Gemini) with human review at every output.
 > The site is bilingual: Arabic at the root, English under /en/.
 
-## Pages (Arabic)
-- [الفوضى](https://alashtalabdullah.info/): قائد العمليات والجودة في إديوستيشن بالدمام. أدخل على بيئات العمل غير المنظمة وأخرج منها بنظام يمشي بلا احتكاك — خمس سنوات خبرة وأتمتة بوكلاء الذكاء الاصطناعي.
-- [السجل](https://alashtalabdullah.info/record/): أربع بيئات عمل غير منظمة دخلتها وخرجت منها بنظام: تنسيق الاستيراد في هيرموني، وتأسيس مطعم جزيرة الزربيان وإدارته، وقيادة العمليات والجودة في إديوستيشن.
-- [الوكلاء](https://alashtalabdullah.info/ai/): أصمم سير العمل عبر Claude Code وأشغله من خلال Manus، وأنشر وكلاء لإعداد التقارير وإدخال البيانات والمتابعة — بمراجعة بشرية لكل مخرج وضوابط للسرية.
-- [التشغيل](https://alashtalabdullah.info/contact/): ثلاث حالات تشغيل بمعيار واحد: إدارة العمليات، وضبط الجودة والرقابة، وأتمتة سير العمل بالوكلاء. مع إجابات الأسئلة السبعة الأولى ونموذج تواصل مباشر.
-
 ## Pages (English)
-- [Chaos](https://alashtalabdullah.info/en/): Operations & Quality Lead in Dammam. I walk into unstructured operations and leave behind a system that runs without friction — plus AI-agent workflow automation.
-- [Record](https://alashtalabdullah.info/en/record/): Four unstructured environments I walked into and left with a system — import coordination, founding an operating project, and leading operations at EduStation.
-- [Agents](https://alashtalabdullah.info/en/ai/): Designing workflows with Claude Code and running them through Manus, with agents for reporting, data entry and follow-up — and human review at every output.
-- [Engage](https://alashtalabdullah.info/en/contact/): Three engagement cases on one standard: operations management, quality control, and agent-driven automation. Seven first-meeting questions answered.
+- [Chaos](https://alashtalabdullah.info/): Operations & Quality Lead in Dammam. I walk into unstructured operations and leave behind a system that runs without friction — plus AI-agent workflow automation.
+- [Record](https://alashtalabdullah.info/record/): Four unstructured environments I walked into and left with a system — import coordination, founding an operating project, and leading operations at EduStation.
+- [Agents](https://alashtalabdullah.info/ai/): Designing workflows with Claude Code and running them through Manus, with agents for reporting, data entry and follow-up — and human review at every output.
+- [Engage](https://alashtalabdullah.info/contact/): Three engagement cases on one standard: operations management, quality control, and agent-driven automation. Seven first-meeting questions answered.
+
+## Pages (Arabic)
+- [الفوضى](https://alashtalabdullah.info/ar/): قائد العمليات والجودة في إديوستيشن بالدمام. أدخل على بيئات العمل غير المنظمة وأخرج منها بنظام يمشي بلا احتكاك — خمس سنوات خبرة وأتمتة بوكلاء الذكاء الاصطناعي.
+- [السجل](https://alashtalabdullah.info/ar/record/): أربع بيئات عمل غير منظمة دخلتها وخرجت منها بنظام: تنسيق الاستيراد في هيرموني، وتأسيس مطعم جزيرة الزربيان وإدارته، وقيادة العمليات والجودة في إديوستيشن.
+- [الوكلاء](https://alashtalabdullah.info/ar/ai/): أصمم سير العمل عبر Claude Code وأشغله من خلال Manus، وأنشر وكلاء لإعداد التقارير وإدخال البيانات والمتابعة — بمراجعة بشرية لكل مخرج وضوابط للسرية.
+- [التشغيل](https://alashtalabdullah.info/ar/contact/): ثلاث حالات تشغيل بمعيار واحد: إدارة العمليات، وضبط الجودة والرقابة، وأتمتة سير العمل بالوكلاء. مع إجابات الأسئلة السبعة الأولى ونموذج تواصل مباشر.
 
 ## Documents
 - [Curriculum vitae, Arabic](https://alashtalabdullah.info/assets/cv/cv-ar.pdf)
 - [Curriculum vitae, English](https://alashtalabdullah.info/assets/cv/cv-en.pdf)
 
 ## Contact
-- https://alashtalabdullah.info/contact/ (Arabic) · https://alashtalabdullah.info/en/contact/ (English)
+- https://alashtalabdullah.info/contact/ (English) · https://alashtalabdullah.info/ar/contact/ (Arabic)
 - LinkedIn: https://www.linkedin.com/in/abdullah-al-ashtal/

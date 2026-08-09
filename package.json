@@ -1,0 +1,13 @@
+{
+  "name": "alashtal-site",
+  "version": "3.0.0",
+  "private": true,
+  "description": "From chaos to order — four pages per language, generated from src/ by a builder with no dependencies.",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --serve"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

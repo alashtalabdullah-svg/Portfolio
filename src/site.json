@@ -33,38 +33,11 @@
     "https://www.facebook.com/abdallah.alashtal"
   ],
   "langs": {
-    "ar": {
-      "code": "ar",
-      "dir": "rtl",
-      "locale": "ar_SA",
-      "base": "/",
-      "brand": "الأشطل",
-      "swatch": "ع",
-      "cv": "/assets/cv/cv-ar.pdf",
-      "ui": {
-        "skip": "تخط إلى المحتوى",
-        "boot": "تهيئة النظام",
-        "menuOpen": "فتح القائمة",
-        "langGroup": "اللغة",
-        "contact": "تواصل",
-        "index": "الفهرس",
-        "indexNav": "فهرس الموقع",
-        "meter": "منسوب النظام",
-        "meterNow": "الغلاف",
-        "cvLabel": "السيرة الذاتية",
-        "cvCue": "نزل",
-        "otherLang": "English version",
-        "home": "الصفحة الرئيسية",
-        "next": "التالي",
-        "footRole": "قائد العمليات والجودة · تشغيل مدعوم بوكلاء الذكاء الاصطناعي",
-        "crumbHome": "الرئيسية"
-      }
-    },
     "en": {
       "code": "en",
       "dir": "ltr",
       "locale": "en_US",
-      "base": "/en/",
+      "base": "/",
       "brand": "AL-ASHTAL",
       "swatch": "EN",
       "cv": "/assets/cv/cv-en.pdf",
@@ -85,6 +58,33 @@
         "next": "Next",
         "footRole": "Operations & Quality Lead · AI-powered operations",
         "crumbHome": "Home"
+      }
+    },
+    "ar": {
+      "code": "ar",
+      "dir": "rtl",
+      "locale": "ar_SA",
+      "base": "/ar/",
+      "brand": "الأشطل",
+      "swatch": "ع",
+      "cv": "/assets/cv/cv-ar.pdf",
+      "ui": {
+        "skip": "تخط إلى المحتوى",
+        "boot": "تهيئة النظام",
+        "menuOpen": "فتح القائمة",
+        "langGroup": "اللغة",
+        "contact": "تواصل",
+        "index": "الفهرس",
+        "indexNav": "فهرس الموقع",
+        "meter": "منسوب النظام",
+        "meterNow": "الغلاف",
+        "cvLabel": "السيرة الذاتية",
+        "cvCue": "نزل",
+        "otherLang": "English version",
+        "home": "الصفحة الرئيسية",
+        "next": "التالي",
+        "footRole": "قائد العمليات والجودة · تشغيل مدعوم بوكلاء الذكاء الاصطناعي",
+        "crumbHome": "الرئيسية"
       }
     }
   },
@@ -365,5 +365,6 @@
         "For teams spending their hours on recurring tasks that could run without hands."
       ]
     ]
-  }
+  },
+  "primary": "en"
 }

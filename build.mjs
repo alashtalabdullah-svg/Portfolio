@@ -285,6 +285,10 @@ for (const page of site.pages) {
       canonical: urlFor(langKey, page),
       altAr: urlFor("ar", page),
       altEn: urlFor("en", page),
+      /* x-default names the version served to an unmatched locale — it has
+         to follow whichever language owns the root, or Google is told the
+         fallback lives somewhere the root does not point. */
+      xdefault: urlFor(site.primary, page),
       otherHref: pathFor(other, page),
       otherCode: site.langs[other].code,
       otherSwatch: site.langs[other].swatch,
@@ -313,8 +317,11 @@ for (const page of site.pages) {
 </nav>`
     };
 
+    /* derived from the language's own `base`, never hard-coded: flipping
+       which language owns the root is then a one-line change in site.json
+       and not a hunt through the builder */
     pending.push({
-      dir: join(DIST, langKey === "ar" ? "" : "en", page.out),
+      dir: join(DIST, L.base.replace(/^\/|\/$/g, ""), page.out),
       html: render(layout, ctx)
     });
     written.push(pathFor(langKey, page));
@@ -444,14 +451,14 @@ ${site.pages
     <loc>${urlFor(l, p)}</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="${urlFor("ar", p)}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${urlFor("en", p)}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${urlFor("ar", p)}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${urlFor(site.primary, p)}"/>
     <image:image>
       <image:loc>${site.origin + site.ogImage}</image:loc>
       <image:title>${esc(site.author[l])} — ${esc(site.role[l])}</image:title>
     </image:image>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>${p.id === "home" ? (l === "ar" ? "1.0" : "0.9") : "0.8"}</priority>
+    <priority>${p.id === "home" ? (l === site.primary ? "1.0" : "0.9") : "0.8"}</priority>
   </url>`
     )
   )
@@ -481,8 +488,8 @@ writeFileSync(
   join(DIST, "404.html"),
   render(read("404.html"), {
     ...site,
-    ...site.langs.ar,
-    lang: "ar",
+    ...site.langs[site.primary],
+    lang: site.primary,
     pageId: "e404",
     year: new Date().getFullYear()
   }),
@@ -515,112 +522,33 @@ writeFileSync(
 > automation (Claude Code, Manus, Gemini) with human review at every output.
 > The site is bilingual: Arabic at the root, English under /en/.
 
-## Pages (Arabic)
-${site.pages.map((p) => `- [${p.ar.nav}](${urlFor("ar", p)}): ${p.ar.desc}`).join("\n")}
-
 ## Pages (English)
 ${site.pages.map((p) => `- [${p.en.nav}](${urlFor("en", p)}): ${p.en.desc}`).join("\n")}
+
+## Pages (Arabic)
+${site.pages.map((p) => `- [${p.ar.nav}](${urlFor("ar", p)}): ${p.ar.desc}`).join("\n")}
 
 ## Documents
 - [Curriculum vitae, Arabic](${site.origin}/assets/cv/cv-ar.pdf)
 - [Curriculum vitae, English](${site.origin}/assets/cv/cv-en.pdf)
 
 ## Contact
-- ${site.origin}/contact/ (Arabic) · ${site.origin}/en/contact/ (English)
+- ${urlFor("en", site.pages.find((p) => p.id === "contact"))} (English) · ${urlFor("ar", site.pages.find((p) => p.id === "contact"))} (Arabic)
 - LinkedIn: ${site.social[0]}
 `,
   "utf8"
 );
 
 /* ---------- host configuration ----------
-   Caching and compression are Core Web Vitals, and Core Web Vitals are a
-   ranking input. None of it can be set from inside a static HTML file, so
-   the config for the three hosts this is likely to land on is emitted
-   here instead. Whichever one applies is read; the rest are inert. */
-writeFileSync(
-  join(DIST, "_headers"),
-  `# Netlify / Cloudflare Pages
-/*
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
+   Deployment is Vercel now, and Vercel reads `vercel.json` from the REPO
+   root, not from the output directory — so routing, redirects and cache
+   headers all live in the committed file at the top of this project.
+   Nothing host-specific is emitted here any more: the Netlify and Apache
+   hedges only littered a public directory with config that no server on
+   this domain would ever read.
 
-# Hashless filenames, so HTML must always be revalidated…
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-# …while assets that only change by being replaced can be held for a year
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-`,
-  "utf8"
-);
-
-writeFileSync(
-  join(DIST, "vercel.json"),
-  JSON.stringify(
-    {
-      cleanUrls: true,
-      trailingSlash: true,
-      headers: [
-        {
-          source: "/(.*)",
-          headers: [
-            { key: "X-Content-Type-Options", value: "nosniff" },
-            { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-            { key: "X-Frame-Options", value: "SAMEORIGIN" }
-          ]
-        },
-        {
-          source: "/assets/(.*)",
-          headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }]
-        }
-      ]
-    },
-    null,
-    2
-  ) + "\n",
-  "utf8"
-);
-
-writeFileSync(
-  join(DIST, ".htaccess"),
-  `# Apache / shared hosting
-DirectoryIndex index.html
-ErrorDocument 404 /404.html
-
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript image/svg+xml
-</IfModule>
-
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/html "access plus 0 seconds"
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 year"
-</IfModule>
-
-<IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-</IfModule>
-
-# one canonical address: force https and drop www, so link equity is
-# never split across four spellings of the same page
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-  RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
-  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-</IfModule>
-`,
-  "utf8"
-);
+   CNAME stays, below: GitHub Pages keeps serving the domain until DNS
+   moves, and a deploy without it would drop the custom domain. */
 
 /* ---------- legacy redirect ----------
    The previous build served English at /en.html. That URL may already
