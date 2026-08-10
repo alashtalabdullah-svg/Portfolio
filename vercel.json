@@ -7,6 +7,12 @@
 
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.alashtalabdullah.info" }],
+      "destination": "https://alashtalabdullah.info/:path*",
+      "permanent": true
+    },
+    {
       "source": "/en/",
       "destination": "/",
       "permanent": true
