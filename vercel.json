@@ -5,15 +5,17 @@
   "framework": null,
   "trailingSlash": true,
 
+  "_redirects_note": "Sources are written WITH the trailing slash on purpose. `trailingSlash: true` normalises the request before routing sees it, so /en/record arrives as /en/record/ and a source of `/en/:path*` never matches — which left /en/zzz/ returning a 404 and the real /en/ paths falling through to the static meta-refresh stubs instead of a real 301.",
+
   "redirects": [
     {
-      "source": "/en",
+      "source": "/en/",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/en/:path*",
-      "destination": "/:path*",
+      "source": "/en/:path+/",
+      "destination": "/:path+/",
       "permanent": true
     },
     {
