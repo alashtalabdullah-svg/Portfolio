@@ -145,10 +145,14 @@ ul, ol { list-style: none; }
        Plex Mono, blowing the word gaps wide open.
    So labels stay in the Arabic family, and the monospaced face is handed
    out below only to runs that are pure Latin or numerals. */
+/* `.78em` compounds: a `.mono` label inside a 10.5px footer resolved to
+   8.2px, which is below the size at which anything is comfortably
+   readable and which mobile usability checks flag outright. The floor
+   makes the label voice quiet without ever making it unreadable. */
 .mono {
   font-family: var(--f);
   font-weight: 400;
-  font-size: .78em;
+  font-size: max(10px, .78em);
   letter-spacing: 0;
 }
 
@@ -448,7 +452,7 @@ body.nav-open .meter { opacity: 0; }
   .meter__lbl, .meter__now { display: none; }
   .meter__val { font-size: 10px; }
 }
-.meter__lbl { grid-column: 1 / -1; font-size: 9.5px; color: color-mix(in srgb, currentColor 45%, transparent); }
+.meter__lbl { grid-column: 1 / -1; font-size: 10.5px; color: color-mix(in srgb, currentColor 45%, transparent); }
 .meter__bar {
   grid-column: 1;
   height: 2px; background: color-mix(in srgb, currentColor 16%, transparent);
@@ -460,7 +464,7 @@ body.nav-open .meter { opacity: 0; }
   transform: scaleX(var(--order)); transform-origin: var(--start);
 }
 .meter__val { font-size: 11px; font-weight: 500; }
-.meter__now { grid-column: 1 / -1; font-size: 9.5px; color: color-mix(in srgb, currentColor 45%, transparent); }
+.meter__now { grid-column: 1 / -1; font-size: 10.5px; color: color-mix(in srgb, currentColor 45%, transparent); }
 @media (max-width: 700px) { .meter { inset-block-end: 14px; width: min(200px, 60vw); } }
 
 /* ---------- 9 · reveal primitives ---------- */
@@ -768,12 +772,31 @@ html[dir="ltr"] .hero__reads b { text-align: left; }
    quietly contradicts it. So the index of the method pins itself to the
    viewport and the reader has to walk the four in sequence to get past.
    The list underneath is complete and readable on its own — the stage is
-   an enhancement, and it is simply absent below 960px and without JS. */
+   an enhancement, and it is simply absent without JS. */
 .sec--method { background: var(--paper-2); }
 
-.proc { display: grid; gap: clamp(20px, 3vw, 64px); grid-template-columns: 1fr; }
+.proc { display: grid; gap: clamp(18px, 3vw, 64px); grid-template-columns: 1fr; }
 .proc__stage { display: none; }
 
+/* --- shared by both orientations of the stage --- */
+.proc__lbl { font-size: 10px; color: var(--ink-3); }
+.proc__spine {
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
+  position: relative; overflow: hidden;
+}
+.proc__spine i { position: absolute; inset: 0; background: var(--sig); }
+.proc__dial li {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 10px; align-items: baseline;
+  opacity: .3;
+  transition: opacity .5s var(--ease), transform .55s var(--ease);
+}
+.proc__dial li.done { opacity: .45; }
+.proc__dial li.on { opacity: 1; }
+.proc__dial b { font-family: var(--fm); font-size: 10px; letter-spacing: .05em; color: var(--ink-3); }
+.proc__dial span { font-weight: 600; line-height: 1.2; }
+
+/* --- wide: the stage is a vertical rail beside the steps --- */
 @media (min-width: 960px) {
   .proc { grid-template-columns: 250px 1fr; align-items: start; }
   .proc--live .proc__stage {
@@ -782,33 +805,60 @@ html[dir="ltr"] .hero__reads b { text-align: left; }
     column-gap: 20px;
     position: sticky; inset-block-start: 28vh;
   }
+  .proc__lbl { grid-column: 2; margin-block-end: 14px; }
+  .proc__spine { grid-column: 1; grid-row: 2; }
+  .proc__spine i { transform: scaleY(var(--fill, 0)); transform-origin: top; }
+  .proc__dial { grid-column: 2; grid-row: 2; display: grid; }
+  .proc__dial li { padding-block: 11px; }
+  .proc__dial li.on { transform: translateX(calc(var(--flip) * 7px)); }
+  .proc__dial span { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
+
+  .proc--live .step { min-height: 34vh; align-content: center; grid-template-columns: auto 1fr; }
+  .proc--live .step:not(.at) { opacity: .38; }
+  /* the stage's spine already reports progress — a second tick per step
+     is the same signal said twice, and it strands a dot at the far edge */
+  .proc--live .step__tick { display: none; }
 }
-.proc__lbl {
-  grid-column: 2; font-size: 10px;
-  color: var(--ink-3); margin-block-end: 14px;
+
+/* --- narrow: the same instrument, laid on its side ---
+   The pinned index used to be desktop-only, which meant the one section
+   whose entire argument is "the order of these four IS the method" lost
+   its motion on exactly the devices most people read it on. A 250px rail
+   does not fit a phone, so the rail becomes a bar: it pins under the top
+   chrome, the spine fills along the reading direction, and the markers
+   track the reader the same way. Same instrument, different axis. */
+@media (max-width: 959px) {
+  .proc--live .proc__stage {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 3px 12px;
+    position: sticky; inset-block-start: 54px;
+    z-index: 6;
+    padding-block: 9px 11px;
+    background: linear-gradient(to bottom,
+      var(--bg) 0%, var(--bg) 70%, transparent 100%);
+  }
+  .proc__lbl { grid-column: 1; grid-row: 1; }
+  .proc__dial {
+    grid-column: 2; grid-row: 1;
+    display: flex; align-items: baseline; gap: 11px;
+  }
+  /* only the step you are on says its name; the rest stay as ticks */
+  .proc__dial li { display: flex; gap: 6px; padding-block: 0; }
+  .proc__dial li:not(.on) span { display: none; }
+  .proc__dial li.on span { font-size: clamp(1rem, 4.6vw, 1.3rem); }
+  .proc__spine {
+    grid-column: 1 / -1; grid-row: 2;
+    height: 2px; margin-block-start: 7px;
+  }
+  .proc__spine i { transform: scaleX(var(--fill, 0)); transform-origin: var(--start); }
+
+  .proc--live .step { min-height: 30vh; align-content: center; grid-template-columns: auto 1fr; }
+  .proc--live .step:not(.at) { opacity: .45; }
+  .proc--live .step__tick { display: none; }
 }
-.proc__spine {
-  grid-column: 1; grid-row: 2;
-  background: color-mix(in srgb, var(--ink) 13%, transparent);
-  position: relative; overflow: hidden;
-}
-.proc__spine i {
-  position: absolute; inset: 0;
-  background: var(--sig);
-  transform: scaleY(0); transform-origin: top;
-}
-.proc__dial { grid-column: 2; grid-row: 2; display: grid; }
-.proc__dial li {
-  display: grid; grid-template-columns: auto 1fr;
-  gap: 10px; align-items: baseline;
-  padding-block: 11px;
-  opacity: .3;
-  transition: opacity .5s var(--ease), transform .55s var(--ease);
-}
-.proc__dial li.done { opacity: .45; }
-.proc__dial li.on { opacity: 1; transform: translateX(calc(var(--flip) * 7px)); }
-.proc__dial b { font-family: var(--fm); font-size: 10px; letter-spacing: .05em; color: var(--ink-3); }
-.proc__dial span { font-size: clamp(1.15rem, 1.7vw, 1.5rem); font-weight: 600; line-height: 1.2; }
+
 
 .steps { display: grid; gap: 0; counter-reset: s; }
 .step {
@@ -822,15 +872,8 @@ html[dir="ltr"] .hero__reads b { text-align: left; }
 }
 .step:last-child { border-block-end: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
 
-/* while the stage is live the steps get room to be walked one at a time,
-   and everything but the one you are on recedes */
-@media (min-width: 960px) {
-  .proc--live .step { min-height: 34vh; align-content: center; grid-template-columns: auto 1fr; }
-  .proc--live .step:not(.at) { opacity: .38; }
-  /* the stage's spine already reports progress — a second tick per step
-     is the same signal said twice, and it strands a dot at the far edge */
-  .proc--live .step__tick { display: none; }
-}
+/* the `.proc--live .step` rules live with the stage they belong to, in
+   section 13 above — both orientations of it set their own step height */
 .step__n {
   font-size: clamp(11px, 1vw, 13px);
   color: var(--ink-3);
@@ -1129,7 +1172,7 @@ html[dir="ltr"] .say::before { content: "“"; }
 }
 .card__files a:hover { color: var(--sig); transform: translateX(calc(var(--flip) * 3px)); }
 .card__files svg, .card__soc svg { width: 15px; height: 15px; }
-.card__files .mono { font-size: 9.5px; opacity: .55; }
+.card__files .mono { font-size: 10px; opacity: .55; }
 .card__soc { display: flex; gap: 16px; }
 .card__soc a:hover { color: var(--sig); transform: translateY(-3px); }
 
@@ -1183,7 +1226,9 @@ html[dir="ltr"] .say::before { content: "“"; }
   padding-block-start: 20px;
   border-block-start: 1px solid color-mix(in srgb, var(--inv) 12%, transparent);
   display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: space-between;
-  font-size: 10.5px; color: var(--inv-3);
+  /* 11px, not 10.5: its children carry `.mono`, and the old value put the
+     copyright line at 8.2px once the em compounded */
+  font-size: 11px; color: var(--inv-3);
 }
 .foot i { font-style: normal; }
 .foot__end b { color: var(--sig); font-weight: 500; }
@@ -1567,6 +1612,85 @@ body.on-dark.nav-open .idx { background: var(--bg-deep); color: var(--inv); }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* =============================================================
+   26 · TOUCH AND THE EDGES OF THE VIEWPORT RANGE
+
+   The layout was already fluid; what it was not was *touchable*. A 15px
+   icon is a fine target for a cursor and a poor one for a thumb, and at
+   320px the top bar held more than the bar was wide.
+   ============================================================= */
+
+/* ---------- 26a · the top bar at phone widths ---------- */
+@media (max-width: 420px) {
+  .bar { padding-inline: 16px; }
+  .bar__side { gap: 9px; }
+  .bar__brand { font-size: 15px; gap: 8px; }
+  /* The contact button is the first thing to go: the index sheet behind
+     the burger lists the engage page and the hero carries its own calls
+     to action, so nothing becomes unreachable — the bar just stops
+     spilling past its own edge. */
+  .bar .btn--sm { display: none; }
+}
+@media (max-width: 340px) {
+  :root { --gut: 16px; }
+  .bar__brand sup { display: none; }
+}
+
+/* ---------- 26b · thumb-sized targets ---------- */
+/* Scoped to coarse pointers so the desktop keeps its tight spacing:
+   this is not a size preference, it is a hit-area one. */
+@media (pointer: coarse) {
+  .lang a { padding: 12px 15px; }
+  .burger { width: 44px; height: 44px; }
+  .bar__brand { padding-block: 9px; }
+  .bar .btn--sm { padding-block: 13px; }
+
+  /* Inline links inside body copy — the pointers from a claim to its
+     proof on another page, and the ones inside the answers. Vertical
+     padding on an inline element grows the hit box without moving the
+     line it sits in, which is exactly what is wanted here. */
+  .step__on a, .entry__on a, .page-head__lede a { padding-block: 8px; }
+  .q__ans a { padding-block: 7px; }
+  .offer__go { padding-block: 10px; }
+  .crumbs ol { padding-block: 4px; }
+  .crumbs a { padding: 11px 2px; }
+
+  .idx__soc, .card__soc, .foot__soc { gap: 4px; }
+  .idx__soc a, .card__soc a, .foot__soc a { padding: 14px; }
+
+  .idx__foot > a,
+  .foot__side > a,
+  .card__files a { padding-block: 13px; }
+
+  .foot__map ol a { padding-block: 11px; }
+  .lost__map { gap: 2px 14px; }
+  .lost__map a { display: inline-block; padding-block: 11px; }
+
+  .q__ask { padding-block: clamp(19px, 3.6vw, 28px); }
+
+  /* the reticle is a cursor instrument, and there is no cursor here */
+  .reticle { display: none !important; }
+}
+
+/* ---------- 26c · short viewports (a phone held sideways) ---------- */
+/* 100svh of hero in a 390px-tall window leaves nothing to read, so the
+   hero stops insisting on a whole screen and takes only what it needs. */
+@media (max-height: 540px) and (orientation: landscape) {
+  .hero { min-height: 0; padding-block: 92px 40px; }
+  .hero__hint { display: none; }
+  .proc--live .step { min-height: 0; }
+  .proc--live .proc__stage { position: static; background: none; }
+  .page-head { padding-block: 96px 36px; }
+}
+
+/* ---------- 26d · very wide screens ---------- */
+/* Past ~1800px the measure stops growing and the page centres instead,
+   so a line never runs to 120 characters just because the monitor can. */
+@media (min-width: 1800px) {
+  :root { --gut: clamp(90px, 7vw, 170px); }
+  .wrap, .hero__grid, .hero__reads { width: min(1440px, 100%); }
 }
 
 /* ---------- 23 · print ---------- */

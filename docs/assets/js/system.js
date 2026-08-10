@@ -275,8 +275,8 @@ var a = steps[0].getBoundingClientRect();
 var z = steps[steps.length - 1].getBoundingClientRect();
 var top = a.top + a.height / 2;
 var span = (z.top + z.height / 2) - top;
-var got = span > 0 ? clamp((line - top) / span, 0, 1) : 0;
-spine.style.transform = "scaleY(" + got.toFixed(3) + ")";
+spine.style.setProperty("--fill",
+(span > 0 ? clamp((line - top) / span, 0, 1) : 0).toFixed(3));
 }
 }
 var q = false;

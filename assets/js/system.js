@@ -432,13 +432,18 @@
       if (spine) {
         /* the spine measures the reader's travel through the sequence,
            not through the section — it fills between the first step's
-           midpoint and the last step's midpoint */
+           midpoint and the last step's midpoint.
+
+           Published as a variable rather than written as a transform,
+           because the stage is a vertical rail on a wide screen and a
+           horizontal bar on a narrow one. The axis is a layout question
+           and belongs to the stylesheet; this only reports how far. */
         var a = steps[0].getBoundingClientRect();
         var z = steps[steps.length - 1].getBoundingClientRect();
         var top = a.top + a.height / 2;
         var span = (z.top + z.height / 2) - top;
-        var got = span > 0 ? clamp((line - top) / span, 0, 1) : 0;
-        spine.style.transform = "scaleY(" + got.toFixed(3) + ")";
+        spine.style.setProperty("--fill",
+          (span > 0 ? clamp((line - top) / span, 0, 1) : 0).toFixed(3));
       }
     }
 

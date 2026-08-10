@@ -237,6 +237,36 @@
     }
     window.addEventListener("load", function () { ST.refresh(); });
 
+    /* ---------------------------------------------------------
+       5 · THE SAFETY NET
+       Rule 2 says a reader must never be left looking at an empty
+       space where content should be. `from` tweens make that true
+       for a trigger that never fires — but not for one that fires
+       against a stale measurement, which is what a re-split heading
+       or a late font can cause. This makes the rule enforced rather
+       than assumed: anything still sitting at its start state while
+       it is on screen gets handed back to the stylesheet.
+
+       Cheap by construction — it only looks after scrolling stops,
+       and only at elements that are actually in view.
+       --------------------------------------------------------- */
+    var sweepTimer;
+    function sweep() {
+      $$("[data-reveal]").forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) > 0.01) return;
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        gsap.killTweensOf(el);
+        gsap.set(el, { clearProps: "all" });
+        if (A.reveal) A.reveal(el);
+      });
+    }
+    window.addEventListener("scroll", function () {
+      clearTimeout(sweepTimer);
+      sweepTimer = setTimeout(sweep, 260);
+    }, { passive: true });
+    window.addEventListener("load", function () { setTimeout(sweep, 900); });
+
   } catch (err) {
     bail(err);
   }

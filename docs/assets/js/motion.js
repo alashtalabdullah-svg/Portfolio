@@ -136,6 +136,22 @@ if (document.fonts && document.fonts.ready) {
 document.fonts.ready.then(function () { ST.refresh(); });
 }
 window.addEventListener("load", function () { ST.refresh(); });
+var sweepTimer;
+function sweep() {
+$$("[data-reveal]").forEach(function (el) {
+if (parseFloat(getComputedStyle(el).opacity) > 0.01) return;
+var r = el.getBoundingClientRect();
+if (r.bottom < 0 || r.top > window.innerHeight) return;
+gsap.killTweensOf(el);
+gsap.set(el, { clearProps: "all" });
+if (A.reveal) A.reveal(el);
+});
+}
+window.addEventListener("scroll", function () {
+clearTimeout(sweepTimer);
+sweepTimer = setTimeout(sweep, 260);
+}, { passive: true });
+window.addEventListener("load", function () { setTimeout(sweep, 900); });
 } catch (err) {
 bail(err);
 }
