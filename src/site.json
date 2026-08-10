@@ -366,5 +366,10 @@
       ]
     ]
   },
-  "primary": "en"
+  "primary": "en",
+  "indexNowKey": "73f066e2af16b3f32f9c02e629c1dc7c",
+  "disambiguation": {
+    "ar": "عبدالله عبدالكريم الأشطل — قائد العمليات والجودة في شركة إديوستيشن بمدينة الدمام، المملكة العربية السعودية. متخصص في بناء أنظمة التشغيل وضبط الجودة وأتمتة سير العمل بوكلاء الذكاء الاصطناعي، وخريج إدارة الأعمال الدولية من جامعة العلوم الحديثة.",
+    "en": "Abdullah Abdulkareem Al-Ashtal — Operations and Quality Lead at EduStation in Dammam, Saudi Arabia. Specialises in building operating systems, quality control, and automating workflows with AI agents. Graduate of International Business Administration, University of Modern Sciences."
+  }
 }

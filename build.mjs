@@ -92,6 +92,21 @@ function jsonLd(langKey, page, L) {
     alternateName: site.author[isAr ? "en" : "ar"],
     jobTitle: site.role[langKey],
     description: page[langKey].desc,
+    /* There is an established "Abdullah Saleh al-Ashtal" in Google's
+       knowledge graph — a Yemeni diplomat with a Wikipedia article — so
+       the surname alone resolves to someone else. This says who THIS
+       person is precisely enough that the two cannot be conflated. It
+       makes no claim about the other entity: disambiguation works by
+       being specific about yourself, not by denying someone else. */
+    disambiguatingDescription: site.disambiguation[langKey],
+    hasOccupation: {
+      "@type": "Occupation",
+      name: site.role[langKey],
+      occupationLocation: { "@type": "City", name: site.city[langKey] },
+      skills: isAr
+        ? "إدارة العمليات، ضبط الجودة، تحسين الإجراءات، أتمتة سير العمل بوكلاء الذكاء الاصطناعي، إدارة سلاسل الإمداد"
+        : "Operations management, quality control, process improvement, AI-agent workflow automation, supply chain management"
+    },
     url: site.origin + site.langs[langKey].base,
     image: site.origin + site.image,
     address: {
@@ -507,6 +522,17 @@ writeFileSync(
 writeFileSync(join(DIST, "CNAME"), "alashtalabdullah.info\n", "utf8");
 writeFileSync(join(DIST, ".nojekyll"), "", "utf8");
 
+/* ---------- IndexNow ----------
+   A crawler finds a change when it next happens to look. IndexNow
+   inverts that: the key file below proves ownership of the host, and
+   `node build.mjs --ping` tells Bing and Yandex the moment something
+   changes rather than waiting to be discovered.
+
+   Worth being straight about the limit: Google does not participate in
+   IndexNow. For Google, the sitemap plus Search Console is still the
+   route. This covers the rest, and it costs one file and one request. */
+writeFileSync(join(DIST, site.indexNowKey + ".txt"), site.indexNowKey, "utf8");
+
 /* ---------- llms.txt ----------
    Answer engines increasingly read a site before a person does, and they
    reward a plain-text map of what is where. This is not a ranking signal
@@ -581,6 +607,28 @@ if (site.primary === "en") {
 
 console.log(`built ${written.length} pages → docs/  (${(saved / 1024).toFixed(1)}KB of comments and indentation stripped from the shipped copy)`);
 written.forEach((u) => console.log("  " + u));
+
+/* ---------- tell the engines that participate ---------- */
+if (process.argv.includes("--ping")) {
+  const host = new URL(site.origin).host;
+  const body = {
+    host,
+    key: site.indexNowKey,
+    keyLocation: `${site.origin}/${site.indexNowKey}.txt`,
+    urlList: site.pages.flatMap((p) => Object.keys(site.langs).map((l) => urlFor(l, p)))
+  };
+  try {
+    const res = await fetch("https://api.indexnow.org/IndexNow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(body)
+    });
+    /* 200 accepted · 202 accepted, key validation pending */
+    console.log(`\nIndexNow: ${res.status} ${res.statusText} — submitted ${body.urlList.length} URLs`);
+  } catch (e) {
+    console.log("\nIndexNow: could not reach the endpoint — " + e.message);
+  }
+}
 
 /* ---------- optional dev server ---------- */
 if (process.argv.includes("--serve")) {
