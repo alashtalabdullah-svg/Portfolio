@@ -36,6 +36,13 @@ The output is `docs/` and **the source sits in the same repository**, served by 
 
 ### ما يفعله `vercel.json` — What `vercel.json` does
 
+> **مصائد وقعتُ فيها — traps already hit here, do not repeat:**
+> ١ · مصادر التحويل تُكتب **بشرطة مائلة في آخرها**. `trailingSlash: true` يُسوّي الطلب قبل أن تصله قواعد التحويل، فيصل `/en/record` كـ`/en/record/` ولا يطابق `\/en/:path*` أبداً.
+> **Redirect sources carry a trailing slash.** `trailingSlash: true` normalises the request before the rules are evaluated, so `/en/record` arrives as `/en/record/` and `/en/:path*` never matches.
+> ٢ · **مخطّط `vercel.json` صارم ولا يقبل أي مفتاح إضافي.** لا تعليقات ولا مفاتيح `_note` — النشر يفشل بـ«Schema verification failed». الشرح مكانه هنا.
+> **The `vercel.json` schema allows no additional properties.** No comments, no `_note` keys — the deploy fails with "Schema verification failed". Explanations belong here instead.
+
+
 Vercel يقرأ الملف من **جذر المستودع** لا من مجلّد المخرَج. وفيه: تحويلات 301 من العناوين الإنجليزية القديمة، ورؤوس الأمان، وسياسة التخزين المؤقت (سنة كاملة للأصول، وتحقّق دائم لصفحات HTML).
 Vercel reads it from the **repository root**, not from the output directory. It carries the 301s from the old English addresses, the security headers, and the cache policy (a year for assets, always-revalidate for HTML).
 
