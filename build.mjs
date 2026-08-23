@@ -546,7 +546,7 @@ writeFileSync(
 > import coordination, operations leadership, administrative supervision and
 > quality control, plus practical deployment of AI agents and workflow
 > automation (Claude Code, Manus, Gemini) with human review at every output.
-> The site is bilingual: Arabic at the root, English under /en/.
+> The site is bilingual: English at the root, Arabic under /ar/.
 
 ## Pages (English)
 ${site.pages.map((p) => `- [${p.en.nav}](${urlFor("en", p)}): ${p.en.desc}`).join("\n")}
